@@ -6,9 +6,19 @@ import {FieldsPage} from './fields.page';
 
 const routes: Routes = [
     {
+        path: '',
+        redirectTo: './tabs',
+        pathMatch: 'full'
+    },
+    {
         path: 'tabs',
         component: FieldsPage,
         children: [
+            {
+                path: '',
+                redirectTo: './listView',
+                pathMatch: 'full'
+            },
             {
                 path: 'listView',
                 loadChildren: './list-fields/list-fields.module#ListFieldsPageModule'
@@ -16,28 +26,15 @@ const routes: Routes = [
             {
                 path: 'imgView',
                 loadChildren: './img-fields/img-fields.module#ImgFieldsPageModule'
-            },
-            {
-                path: '',
-                redirectTo: '/fields/tabs/listView',
-                pathMatch: 'full'
             }
 
         ]
     },
     {
-        path: '',
-        redirectTo: '/fields/tabs',
-        pathMatch: 'full'
-    },
-    {
-        path: 'list-fields',
-        loadChildren: () => import('./list-fields/list-fields.module').then(m => m.ListFieldsPageModule)
-    },
-    {
-        path: 'img-fields',
-        loadChildren: () => import('./img-fields/img-fields.module').then(m => m.ImgFieldsPageModule)
+        path: 'new-field',
+        loadChildren: () => import('./new-field/new-field.module').then(m => m.NewFieldPageModule)
     }
+
 ];
 
 @NgModule({

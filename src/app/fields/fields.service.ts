@@ -18,6 +18,13 @@ export class FieldsService {
     get fields() {
         return [...this._fields];
     }
+
+    addField(name: string, position: string, description: string) {
+        this._fields.push(
+            new Field(name, position, description)
+        );
+
+    }
 }
 
 /*

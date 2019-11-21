@@ -1,9 +1,24 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  {path: '', redirectTo: 'campi', pathMatch: 'full'},
+  {
+    path: 'campi',
+    loadChildren: () => import('./campi/campi.module').then(m => m.CampiPageModule)
+  },
+  {
+    path: 'operazioni',
+    loadChildren: () => import('./operazioni/operazioni.module').then(m => m.OperazioniPageModule)
+  },
+  {
+    path: 'segnalazioni',
+    loadChildren: () => import('./segnalazioni/segnalazioni.module').then(m => m.SegnalazioniPageModule)
+  },
+  {
+    path: 'meteo',
+    loadChildren: () => import('./meteo/meteo.module').then(m => m.MeteoPageModule)
+  },
 ];
 
 @NgModule({

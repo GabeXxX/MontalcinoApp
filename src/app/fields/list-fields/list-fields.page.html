@@ -1,0 +1,19 @@
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col offset-sm="2" size="12" size-sm="8">
+                <ion-list>
+                    <ion-item *ngFor="let field of loadedFields">
+                        <ion-thumbnail slot="start">
+                            <ion-img [src]="field.imagePreviewUrl"></ion-img>
+                        </ion-thumbnail>
+                        <ion-label>
+                            <h2>{{field.name}}</h2>
+                            <p>{{field.description}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

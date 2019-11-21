@@ -1,5 +1,7 @@
 {
   "name": "MontalcinoApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

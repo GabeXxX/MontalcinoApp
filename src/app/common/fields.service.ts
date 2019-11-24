@@ -9,19 +9,19 @@ export class FieldsService {
     }
 
     private _fields: Field[] = [
-        new Field('Campo 1', 'Via del Brunello 16', 'Coltivazione di Brunello'),
-        new Field('Campo 2', 'Via del Rosso 35', 'Coltivazione di Rosso'),
-        new Field('Campo 3', 'Via del Grappolo 18', 'Coltivazione di uva da tavola'),
-        new Field('Campo 4', 'Via della Vite 2', 'Coltivazione di uva bianca'),
+        new Field('Campo 1', 'Via del Brunello 16', 1, 'Coltivazione di Brunello'),
+        new Field('Campo 2', 'Via del Rosso 35', 2, 'Coltivazione di Rosso'),
+        new Field('Campo 3', 'Via del Grappolo 18', 3, 'Coltivazione di uva da tavola'),
+        new Field('Campo 4', 'Via della Vite 2', 4, 'Coltivazione di uva bianca'),
     ];
 
     get fields() {
         return [...this._fields];
     }
 
-    addField(name: string, position: string, description: string) {
+    addField(name: string, position: string, id: number, description: string) {
         this._fields.push(
-            new Field(name, position, description)
+            new Field(name, position, id, description)
         );
 
     }

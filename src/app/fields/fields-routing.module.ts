@@ -6,26 +6,26 @@ import {FieldsPage} from './fields.page';
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: './tabs',
-        pathMatch: 'full'
-    },
-    {
         path: 'tabs',
         component: FieldsPage,
         children: [
             {
-                path: '',
-                redirectTo: './listView',
-                pathMatch: 'full'
-            },
-            {
                 path: 'listView',
-                loadChildren: './list-fields/list-fields.module#ListFieldsPageModule'
+                children: [
+                    {
+                        path: '',
+                        loadChildren: './list-fields/list-fields.module#ListFieldsPageModule'
+                    }
+                ]
             },
             {
                 path: 'imgView',
                 loadChildren: './img-fields/img-fields.module#ImgFieldsPageModule'
+            },
+            {
+                path: '',
+                redirectTo: '/fields/tabs/listView',
+                pathMatch: 'full'
             }
 
         ]
@@ -33,6 +33,15 @@ const routes: Routes = [
     {
         path: 'new-field',
         loadChildren: () => import('./new-field/new-field.module').then(m => m.NewFieldPageModule)
+    },
+    {
+        path: '',
+        redirectTo: '/fields/tabs/listView',
+        pathMatch: 'full'
+    },
+    {
+        path: ':fieldId',
+        loadChildren: () => import('./field-details/field-details.module').then(m => m.FieldDetailsPageModule)
     }
 
 ];

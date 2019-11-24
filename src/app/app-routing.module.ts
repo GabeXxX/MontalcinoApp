@@ -18,7 +18,7 @@ const routes: Routes = [
   {
       path: 'weather',
       loadChildren: () => import('./weather/weather.module').then(m => m.WeatherPageModule)
-  },
+  }
 
 ];
 

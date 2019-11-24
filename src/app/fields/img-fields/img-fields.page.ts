@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Field} from '../field.model';
-import {FieldsService} from '../fields.service';
+import {Field} from '../../common/field.model';
+import {FacadeService} from '../../common/facade.service';
 
 @Component({
     selector: 'app-img-fields',
@@ -10,11 +10,11 @@ import {FieldsService} from '../fields.service';
 export class ImgFieldsPage implements OnInit {
     loadedFields: Field[];
 
-    constructor(private fieldsService: FieldsService) {
+    constructor(private facadeService: FacadeService) {
     }
 
     ngOnInit() {
-        this.loadedFields = this.fieldsService.fields;
+        this.loadedFields = this.facadeService.getField();
     }
 
 }

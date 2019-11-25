@@ -7,6 +7,18 @@ const routes: Routes = [
     {
         path: '',
         component: FieldOperationsPage
+    },
+    {
+        path: 'update-operation',
+        loadChildren: () => import('./update-operation/update-operation.module').then(m => m.UpdateOperationPageModule)
+    },
+    {
+        path: 'create-operation',
+        loadChildren: () => import('./create-operation/create-operation.module').then(m => m.CreateOperationPageModule)
+    },
+    {
+        path: ':operationId',
+        loadChildren: () => import('./operation-details/operation-details.module').then(m => m.OperationDetailsPageModule)
     }
 ];
 

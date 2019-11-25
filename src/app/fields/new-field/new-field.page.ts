@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FieldsService} from '../../common/fields.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FacadeService} from '../../common/facade.service';
 
 @Component({
     selector: 'app-new-field',
@@ -10,9 +10,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class NewFieldPage implements OnInit {
 
     form: FormGroup;
-    tmpFieldId: number = 5;
+    tmpFieldId = '5';
 
-    constructor(private fieldsService: FieldsService) {
+    constructor(private facadeService: FacadeService) {
     }
 
     ngOnInit() {
@@ -37,9 +37,8 @@ export class NewFieldPage implements OnInit {
 
     onCreateField() {
         console.log(this.form);
-        this.fieldsService.addField(this.form.value.name, this.form.value.description, this.tmpFieldId, this.form.value.position);
-        this.tmpFieldId++;
-        console.log(this.fieldsService.fields);
+        this.facadeService.createField(this.form.value.name, this.form.value.description, this.tmpFieldId, this.form.value.position);
+
 
     }
 

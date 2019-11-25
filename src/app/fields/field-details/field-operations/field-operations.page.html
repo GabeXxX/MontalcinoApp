@@ -1,9 +1,32 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>field-operations</ion-title>
+        <ion-title>Operazioni {{field.name}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col offset-sm="2" size="12" size-sm="8">
+                <ion-list>
+                    <ion-item *ngFor="let operation of operations"
+                              [routerLink]="['/', 'fields', field.id, 'field-operations', operation.id]" detail>
+                        <ion-label>
+                            <h2>{{operation.name}}</h2>
+                            <p>{{operation.description}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
+    <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+        <ion-fab-button [routerLink]="['/', 'fields', field.id, 'field-operations', 'create-operation']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

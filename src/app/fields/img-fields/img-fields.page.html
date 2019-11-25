@@ -3,7 +3,7 @@
         <ion-row>
             <ion-col offset-sm="2" size="12" size-sm="8">
                 <ion-list>
-                    <ion-item *ngFor="let field of loadedFields" lines="none">
+                    <ion-item *ngFor="let field of loadedFields" [routerLink]="['/', 'fields', field.id]" lines="none">
                         <ion-card>
                             <ion-card-header>
                                 <ion-card-title>{{field.name}}</ion-card-title>

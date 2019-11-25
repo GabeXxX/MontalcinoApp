@@ -1,9 +1,60 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>field-info</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/', 'fields', field.id]"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Informazioni su {{field.name}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col offset-sm="2" size="12" size-sm="8">
+                <ion-list>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Nome: {{field.name}}</h2>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Descrizione: {{field.description}}</h2>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Posizione: {{field.position}}</h2>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Area: {{field.area}}</h2>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Perimetro: {{field.perimeter}}</h2>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Coltivazione: {{field.cultivation}}</h2>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>Proprietario: {{field.owner}}</h2>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
+    <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+        <ion-fab-button [routerLink]="['/', 'fields', field.id, 'field-info', 'update-field-info']">
+            <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

@@ -14,7 +14,7 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: './list-fields/list-fields.module#ListFieldsPageModule'
+                        loadChildren: () => import('./list-fields/list-fields.module').then(m => m.ListFieldsPageModule)
                     }
                 ]
             },

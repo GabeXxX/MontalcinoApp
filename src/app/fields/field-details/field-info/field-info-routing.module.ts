@@ -7,6 +7,10 @@ const routes: Routes = [
     {
         path: '',
         component: FieldInfoPage
+    },
+    {
+        path: 'update-field-info',
+        loadChildren: () => import('./update-field-info/update-field-info.module').then(m => m.UpdateFieldInfoPageModule)
     }
 ];
 

@@ -14,7 +14,7 @@ export class ImgFieldsPage implements OnInit {
     }
 
     ngOnInit() {
-        this.loadedFields = this.facadeService.getField();
+        this.loadedFields = this.facadeService.fields;
     }
 
 }

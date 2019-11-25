@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FieldsService} from './fields.service';
+import {Operation} from './operation.model';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +10,8 @@ export class FacadeService {
     constructor(private fieldsService: FieldsService) {
     }
 
-    createField(name: string, position: string, id: number, description: string) {
-        this.fieldsService.addField(name, position, id, description);
+    get fields() {
+        return this.fieldsService.fields;
     }
 
     removeField() {
@@ -19,11 +20,18 @@ export class FacadeService {
     updateField() {
     }
 
-    getField() {
-        return this.fieldsService.fields;
+    createField(name: string, position: string, id: string, description: string) {
+        this.fieldsService.createField(name, position, id, description);
     }
 
-    createOperation() {
+    getField(id: string) {
+        return {...this.fieldsService.fields.find(p => p.id === id)};
+    }
+
+    createOperation(fieldId: string, name: string) {
+        const tmpField = this.getField(fieldId);
+        tmpField.operations.push(new Operation(name, '5'));
+        console.log(tmpField);
     }
 
     removeOperation() {
@@ -32,7 +40,10 @@ export class FacadeService {
     updateOperation() {
     }
 
-    getOPeration() {
+    getOperation(fieldId: string, operationId: string) {
+        const tmpField = this.getField(fieldId);
+        const operation = tmpField.operations.find(o => o.id === operationId);
+        return {...operation};
     }
 
 }

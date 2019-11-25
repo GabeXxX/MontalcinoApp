@@ -9,10 +9,6 @@ const routes: Routes = [
         component: FieldOperationsPage
     },
     {
-        path: 'update-operation',
-        loadChildren: () => import('./update-operation/update-operation.module').then(m => m.UpdateOperationPageModule)
-    },
-    {
         path: 'create-operation',
         loadChildren: () => import('./create-operation/create-operation.module').then(m => m.CreateOperationPageModule)
     },

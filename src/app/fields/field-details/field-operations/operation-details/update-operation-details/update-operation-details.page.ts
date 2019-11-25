@@ -1,18 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {Operation} from '../../../../common/operation.model';
-import {FacadeService} from '../../../../common/facade.service';
+import {Operation} from '../../../../../common/operation.model';
+import {FacadeService} from '../../../../../common/facade.service';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
-import {Field} from '../../../../common/field.model';
 
 @Component({
-    selector: 'app-operation-details',
-    templateUrl: './operation-details.page.html',
-    styleUrls: ['./operation-details.page.scss'],
+    selector: 'app-update-operation-details',
+    templateUrl: './update-operation-details.page.html',
+    styleUrls: ['./update-operation-details.page.scss'],
 })
-export class OperationDetailsPage implements OnInit {
+export class UpdateOperationDetailsPage implements OnInit {
     operation: Operation;
-    field: Field;
 
     constructor(private facadeService: FacadeService, private navController: NavController, private activatedRoute: ActivatedRoute) {
     }
@@ -24,9 +22,7 @@ export class OperationDetailsPage implements OnInit {
                 return;
             }
             this.operation = this.facadeService.getOperation(paramMap.get('fieldId'), paramMap.get('operationId'));
-            this.field = this.facadeService.getField(paramMap.get('fieldId'));
-
         });
-    }
 
+    }
 }

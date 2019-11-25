@@ -18,4 +18,7 @@ export class ListFieldsPage implements OnInit {
         this.loadedFields = this.facadeService.fields;
     }
 
+    onDelete() {
+    }
+
 }

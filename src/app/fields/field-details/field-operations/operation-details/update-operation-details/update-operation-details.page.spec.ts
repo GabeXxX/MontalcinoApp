@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
-import {UpdateOperationPage} from './update-operation.page';
+import {UpdateOperationDetailsPage} from './update-operation-details.page';
 
-describe('UpdateOperationPage', () => {
-    let component: UpdateOperationPage;
-    let fixture: ComponentFixture<UpdateOperationPage>;
+describe('UpdateOperationDetailsPage', () => {
+    let component: UpdateOperationDetailsPage;
+    let fixture: ComponentFixture<UpdateOperationDetailsPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [UpdateOperationPage],
+            declarations: [UpdateOperationDetailsPage],
             imports: [IonicModule.forRoot()]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(UpdateOperationPage);
+        fixture = TestBed.createComponent(UpdateOperationDetailsPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

@@ -21,23 +21,47 @@ export class NewFieldPage implements OnInit {
                 updateOn: 'blur',
                 validators: [Validators.required]
             }),
+            position: new FormControl(null, {
+                updateOn: 'blur',
+                validators: [Validators.required, Validators.min(1)]
+
+            }),
             description: new FormControl(null, {
                 updateOn: 'blur',
                 validators: [Validators.required, Validators.maxLength(180)]
 
             }),
-            position: new FormControl(null, {
+            area: new FormControl(null, {
                 updateOn: 'blur',
-                validators: [Validators.required, Validators.min(1)]
-
+                validators: [Validators.required]
+            }),
+            perimeter: new FormControl(null, {
+                updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            cultivation: new FormControl(null, {
+                updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            owner: new FormControl(null, {
+                updateOn: 'blur',
+                validators: [Validators.required]
             })
+
         });
     }
 
 
     onCreateField() {
         console.log(this.form);
-        this.facadeService.createField(this.form.value.name, this.form.value.description, this.tmpFieldId, this.form.value.position);
+        this.facadeService.createField(this.form.value.name,
+            this.form.value.position,
+            this.form.value.description,
+            '/assets/fieldPreview.jpg',
+            this.form.value.cultivation,
+            this.form.value.owner,
+            this.form.value.area,
+            this.form.value.perimeter);
 
 
     }

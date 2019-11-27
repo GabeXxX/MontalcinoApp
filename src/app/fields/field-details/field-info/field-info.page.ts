@@ -3,6 +3,7 @@ import {Field} from '../../../common/field.model';
 import {FacadeService} from '../../../common/facade.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavController} from '@ionic/angular';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-field-info',
@@ -10,7 +11,9 @@ import {NavController} from '@ionic/angular';
     styleUrls: ['./field-info.page.scss'],
 })
 export class FieldInfoPage implements OnInit {
-    field: Field;
+    private field: Field;
+    private fieldSubscription: Subscription;
+
 
     constructor(private facadeService: FacadeService,
                 private activatedRoute: ActivatedRoute,
@@ -23,8 +26,15 @@ export class FieldInfoPage implements OnInit {
                 this.navController.navigateBack('/fields');
                 return;
             }
-            this.field = this.facadeService.getField(paramMap.get('fieldId'));
+            this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
+                .subscribe((field) => {
+                    this.field = field;
+                });
 
         });
+    }
+
+    ngOnDestroy(): void {
+        this.fieldSubscription.unsubscribe();
     }
 }

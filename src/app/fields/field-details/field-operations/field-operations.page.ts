@@ -4,6 +4,7 @@ import {FacadeService} from '../../../common/facade.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavController} from '@ionic/angular';
 import {Operation} from '../../../common/operation.model';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-field-operations',
@@ -11,8 +12,11 @@ import {Operation} from '../../../common/operation.model';
     styleUrls: ['./field-operations.page.scss'],
 })
 export class FieldOperationsPage implements OnInit {
-    field: Field;
-    operations: Operation [];
+    private operations: Operation[];
+    private field: Field;
+    private fieldSubscription: Subscription;
+    private operationSubscription: Subscription;
+
 
     constructor(private facadeService: FacadeService,
                 private activatedRoute: ActivatedRoute,
@@ -25,10 +29,21 @@ export class FieldOperationsPage implements OnInit {
                 this.navController.navigateBack('/fields');
                 return;
             }
-            this.field = this.facadeService.getField(paramMap.get('fieldId'));
-            this.operations = this.field.operations;
+            this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
+                .subscribe((field) => this.field = field);
+            this.operationSubscription = this.facadeService.getFieldOperations(paramMap.get('fieldId'))
+                .subscribe((operations: Operation[]) => {
+                    console.log(operations);
+                    this.operations = operations;
+                });
 
         });
+
+    }
+
+    ngOnDestroy(): void {
+        this.fieldSubscription.unsubscribe();
+        this.operationSubscription.unsubscribe();
     }
 
     onDelete() {

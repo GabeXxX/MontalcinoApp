@@ -1,10 +1,11 @@
 export class Operation {
 
     constructor(public name: string,
-                public id: string,
-                public description: string = null,
-                public date: string = null,
-                public operator: string = null,
+                public operationId: string,
+                public fieldId: string,
+                public description: string = 'Descrizione operazione',
+                public date: string = '1/1/1970',
+                public operator: string = 'Marco Rossi',
     ) {
     }
 }

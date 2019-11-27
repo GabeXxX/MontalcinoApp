@@ -4,6 +4,7 @@ import {FacadeService} from '../../../../common/facade.service';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {Field} from '../../../../common/field.model';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-operation-details',
@@ -11,22 +12,34 @@ import {Field} from '../../../../common/field.model';
     styleUrls: ['./operation-details.page.scss'],
 })
 export class OperationDetailsPage implements OnInit {
-    operation: Operation;
-    field: Field;
+    private operation: Operation;
+    private field: Field;
+    private fieldSubscription: Subscription;
 
-    constructor(private facadeService: FacadeService, private navController: NavController, private activatedRoute: ActivatedRoute) {
+
+    constructor(private facadeService: FacadeService,
+                private activatedRoute: ActivatedRoute,
+                private navController: NavController) {
     }
 
     ngOnInit() {
         this.activatedRoute.paramMap.subscribe(paramMap => {
-            if (!paramMap.has('operationId') || !paramMap.has('fieldId')) {
+            if (!paramMap.has('operationId')) {
                 this.navController.navigateBack('/fields');
                 return;
             }
-            this.operation = this.facadeService.getOperation(paramMap.get('fieldId'), paramMap.get('operationId'));
-            this.field = this.facadeService.getField(paramMap.get('fieldId'));
-
+            this.fieldSubscription = this.facadeService.getOperation(paramMap.get('operationId'))
+                .subscribe((operation) => {
+                    this.operation = operation;
+                });
         });
+
+    }
+
+    ngOnDestroy(): void {
+        this.fieldSubscription.unsubscribe();
     }
 
 }
+
+

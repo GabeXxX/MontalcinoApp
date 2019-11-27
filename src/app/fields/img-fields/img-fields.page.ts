@@ -1,20 +1,32 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Field} from '../../common/field.model';
 import {FacadeService} from '../../common/facade.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-img-fields',
     templateUrl: './img-fields.page.html',
     styleUrls: ['./img-fields.page.scss'],
 })
-export class ImgFieldsPage implements OnInit {
-    loadedFields: Field[];
+export class ImgFieldsPage implements OnInit, OnDestroy {
+    private loadedFields: Field[];
+    private fieldSubscription: Subscription;
+
 
     constructor(private facadeService: FacadeService) {
     }
 
     ngOnInit() {
-        this.loadedFields = this.facadeService.fields;
+        this.fieldSubscription = this.facadeService.fields.subscribe((field) => {
+            this.loadedFields = field;
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.fieldSubscription.unsubscribe();
+    }
+
+    onDelete() {
     }
 
 }

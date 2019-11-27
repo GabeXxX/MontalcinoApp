@@ -1,49 +1,80 @@
 import {Injectable} from '@angular/core';
 import {FieldsService} from './fields.service';
-import {Operation} from './operation.model';
+import {OperationsService} from './operations.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FacadeService {
 
-    constructor(private fieldsService: FieldsService) {
+    constructor(private fieldsService: FieldsService, private operationsService: OperationsService) {
     }
 
     get fields() {
         return this.fieldsService.fields;
     }
 
-    removeField() {
+    get operations() {
+        return this.operationsService.operations;
     }
 
-    updateField() {
+    createField(name: string,
+                position: string,
+                description: string = null,
+                imagePreviewUrl: string = '/assets/fieldPreview.jpg',
+                cultivation: string = 'Vite',
+                owner: string = 'Azienda Montalcino',
+                area: string = null,
+                perimeter: string = null) {
+        this.fieldsService.createField(name, position, description, imagePreviewUrl, cultivation, owner, area, perimeter);
     }
 
-    createField(name: string, position: string, id: string, description: string) {
-        this.fieldsService.createField(name, position, id, description);
+    getField(fieldId: string) {
+        return this.fieldsService.getField(fieldId);
     }
 
-    getField(id: string) {
-        return {...this.fieldsService.fields.find(p => p.id === id)};
+    removeField(fieldId: string) {
+        return this.fieldsService.removeField(fieldId);
     }
 
-    createOperation(fieldId: string, name: string) {
-        const tmpField = this.getField(fieldId);
-        tmpField.operations.push(new Operation(name, '5'));
-        console.log(tmpField);
+    updateField(fieldId: string,
+                name: string,
+                position: string,
+                description: string = null,
+                imagePreviewUrl: string = '/assets/fieldPreview.jpg',
+                cultivation: string = 'Vite',
+                owner: string = 'Azienda Montalcino',
+                area: string = null,
+                perimeter: string = null) {
+        return this.fieldsService.updateField(fieldId, name, position, description, imagePreviewUrl, cultivation, owner, area, perimeter);
     }
 
-    removeOperation() {
+    getFieldOperations(fieldId: string) {
+        return this.operationsService.getFieldOperations(fieldId);
     }
 
-    updateOperation() {
+    createOperation(name: string,
+                    fieldId: string,
+                    description: string = 'Descrizione operazione',
+                    date: string = '1/1/1970',
+                    operator: string = 'Marco Rossi') {
+        this.operationsService.createOperation(name, fieldId, description, date, operator);
     }
 
-    getOperation(fieldId: string, operationId: string) {
-        const tmpField = this.getField(fieldId);
-        const operation = tmpField.operations.find(o => o.id === operationId);
-        return {...operation};
+    removeOperation(operationId: string) {
+        this.operationsService.removeOperation(operationId);
+    }
+
+    getOperation(operationId: string) {
+        return this.operationsService.getOperation(operationId);
+    }
+
+    updateOperation(operationId: string,
+                    name: string,
+                    description: string = 'Descrizione operazione',
+                    date: string = '1/1/1970',
+                    operator: string = 'Marco Rossi') {
+        this.operationsService.updateOperation(operationId, name, description, date, operator);
     }
 
 }

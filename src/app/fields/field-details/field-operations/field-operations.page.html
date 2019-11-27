@@ -13,7 +13,8 @@
             <ion-col offset-sm="2" size="12" size-sm="8">
                 <ion-list>
                     <ion-item-sliding *ngFor="let operation of operations">
-                        <ion-item [routerLink]="['/', 'fields', field.id, 'field-operations', operation.id]" detail>
+                        <ion-item [routerLink]="['/', 'fields', field.id, 'field-operations', operation.operationId]"
+                                  detail>
                             <ion-label>
                                 <h2>{{operation.name}}</h2>
                                 <p>{{operation.description}}</p>

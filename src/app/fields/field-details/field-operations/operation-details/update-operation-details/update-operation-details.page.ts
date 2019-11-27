@@ -16,13 +16,13 @@ export class UpdateOperationDetailsPage implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.paramMap.subscribe(paramMap => {
+        /*this.activatedRoute.paramMap.subscribe(paramMap => {
             if (!paramMap.has('operationId') || !paramMap.has('fieldId')) {
                 this.navController.navigateBack('/fields');
                 return;
             }
             this.operation = this.facadeService.getOperation(paramMap.get('fieldId'), paramMap.get('operationId'));
-        });
+        });*/
 
     }
 }

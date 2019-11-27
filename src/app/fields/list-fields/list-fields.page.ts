@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Field} from '../../common/field.model';
 import {FacadeService} from '../../common/facade.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -8,17 +9,27 @@ import {FacadeService} from '../../common/facade.service';
     templateUrl: './list-fields.page.html',
     styleUrls: ['./list-fields.page.scss'],
 })
-export class ListFieldsPage implements OnInit {
-    loadedFields: Field[];
+export class ListFieldsPage implements OnInit, OnDestroy {
+    private loadedFields: Field[];
+    private fieldSubscription: Subscription;
+    private fieldSubscription1: Subscription;
 
     constructor(private facadeService: FacadeService) {
     }
 
     ngOnInit() {
-        this.loadedFields = this.facadeService.fields;
+        this.fieldSubscription = this.facadeService.fields.subscribe((fields) => {
+            this.loadedFields = fields;
+        });
     }
 
-    onDelete() {
+    ngOnDestroy(): void {
+        this.fieldSubscription.unsubscribe();
+        this.fieldSubscription1.unsubscribe();
+    }
+
+    onDelete(fieldId: string) {
+        this.fieldSubscription1 = this.facadeService.removeField(fieldId).subscribe();
     }
 
 }

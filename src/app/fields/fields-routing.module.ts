@@ -20,7 +20,7 @@ const routes: Routes = [
             },
             {
                 path: 'imgView',
-                loadChildren: './img-fields/img-fields.module#ImgFieldsPageModule'
+                loadChildren: () => import('./img-fields/img-fields.module').then(m => m.ImgFieldsPageModule)
             },
             {
                 path: '',

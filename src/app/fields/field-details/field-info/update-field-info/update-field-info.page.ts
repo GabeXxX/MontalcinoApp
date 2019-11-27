@@ -39,11 +39,11 @@ export class UpdateFieldInfoPage implements OnInit {
         });
 
         this.activatedRoute.paramMap.subscribe(paramMap => {
-            if (!paramMap.has('fieldId')) {
+            /*if (!paramMap.has('fieldId')) {
                 this.navController.navigateBack('/fields');
                 return;
             }
-            this.field = this.facadeService.getField(paramMap.get('fieldId'));
+            this.field = this.facadeService.getField(paramMap.get('fieldId'));*/
 
         });
     }

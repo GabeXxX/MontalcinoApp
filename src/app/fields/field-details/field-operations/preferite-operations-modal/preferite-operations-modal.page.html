@@ -34,7 +34,8 @@
     </ion-grid>
 
     <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-        <ion-fab-button>
+        <ion-fab-button
+                [routerLink]="['/', 'fields', field.id, 'field-operations', 'preferite-operations-modal', 'create-preferite-operation']">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

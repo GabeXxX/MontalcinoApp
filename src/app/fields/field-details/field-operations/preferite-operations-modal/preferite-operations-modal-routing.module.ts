@@ -7,6 +7,10 @@ const routes: Routes = [
     {
         path: '',
         component: PreferiteOperationsModalPage
+    },
+    {
+        path: 'create-preferite-operation',
+        loadChildren: () => import('./create-preferite-operation/create-preferite-operation.module').then(m => m.CreatePreferiteOperationPageModule)
     }
 ];
 

@@ -6,6 +6,7 @@ export class Operation {
                 public description: string = 'Descrizione operazione',
                 public date: string = '1/1/1970',
                 public operator: string = 'Marco Rossi',
+                public isDone: boolean = true
     ) {
     }
 }

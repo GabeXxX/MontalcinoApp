@@ -19,6 +19,7 @@
                                 <h2>{{operation.name}}</h2>
                                 <p>{{operation.description}}</p>
                             </ion-label>
+                            <ion-checkbox [(ngModel)]="operation.isDone" slot="start"></ion-checkbox>
                         </ion-item>
                         <ion-item-options>
                             <ion-item-option (click)="onDelete(operation.operationId)" color="danger">

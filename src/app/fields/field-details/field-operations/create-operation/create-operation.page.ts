@@ -19,6 +19,7 @@ export class CreateOperationPage implements OnInit, OnDestroy {
     private defName: string;
     private defDescription: string;
     private defOperator: string;
+    private isDone: boolean = true;
 
     constructor(private facadeService: FacadeService,
                 private activatedRoute: ActivatedRoute,

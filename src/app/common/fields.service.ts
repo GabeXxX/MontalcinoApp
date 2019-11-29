@@ -130,11 +130,9 @@ export class FieldsService {
 
     removeField(fieldId: string) {
         return this.fields.pipe(take(1), tap((fields) => {
-            const deletedFieldIndex = fields.findIndex((field) => field.id === fieldId);
-            const deletedFields = [...fields];
-            deletedFields.splice(deletedFieldIndex, 1);
-            this._fields.next(deletedFields);
-        }));
+                this._fields.next(fields.filter(field => field.id !== fieldId));
+            })
+        );
     }
 
     updateField(

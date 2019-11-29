@@ -8,6 +8,7 @@ import {FieldOperationsPageRoutingModule} from './field-operations-routing.modul
 
 import {FieldOperationsPage} from './field-operations.page';
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -15,7 +16,7 @@ import {FieldOperationsPage} from './field-operations.page';
         IonicModule,
         FieldOperationsPageRoutingModule
     ],
-    declarations: [FieldOperationsPage]
+    declarations: [FieldOperationsPage],
 })
 export class FieldOperationsPageModule {
 }

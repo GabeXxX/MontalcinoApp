@@ -35,6 +35,6 @@ export class FieldInfoPage implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.fieldSubscription.unsubscribe();
+
     }
 }

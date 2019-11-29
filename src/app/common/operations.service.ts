@@ -14,14 +14,16 @@ export class OperationsService {
 
     private _operations = new BehaviorSubject<Operation[]>([
         new Operation('Operazione 1', '1', '1'),
-        new Operation('Operazione 1', '1', '2'),
-        new Operation('Operazione 1', '1', '3'),
-        new Operation('Operazione 1', '1', '4'),
-        new Operation('Operazione 2', '1', '4'),
+        new Operation('Operazione 1', '2', '2'),
+        new Operation('Operazione 1', '3', '3'),
+        new Operation('Operazione 1', '4', '4'),
+        new Operation('Operazione 2', '5', '4'),
     ]);
+
 
     get operations() {
         return this._operations.asObservable();
+
     }
 
     getOperation(operationId: string) {
@@ -60,11 +62,9 @@ export class OperationsService {
 
     removeOperation(operationId: string) {
         return this.operations.pipe(take(1), tap((operations) => {
-            const deletedOperationIndex = operations.findIndex((operation) => operation.operationId === operationId);
-            const deletedOperations = [...operations];
-            deletedOperations.splice(deletedOperationIndex, 1);
-            this._operations.next(deletedOperations);
-        }));
+                this._operations.next(operations.filter(operation => operation.operationId !== operationId));
+            })
+        );
     }
 
     updateOperation(operationId: string,
@@ -82,13 +82,8 @@ export class OperationsService {
     }
 
 
-    getFieldOperations(fieldId: string) {
-        return this.operations.pipe(
-            take(1),
-            map((operations) => {
+    getFieldOperations(fieldId: string, operations: Operation[]) {
                 return [...operations.filter((operation) => operation.fieldId === fieldId)];
-            })
-        );
     }
 
 

@@ -24,8 +24,7 @@ export class ListFieldsPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.fieldSubscription.unsubscribe();
-        this.fieldSubscription1.unsubscribe();
+
     }
 
     onDelete(fieldId: string) {

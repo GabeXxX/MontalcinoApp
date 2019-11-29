@@ -23,7 +23,7 @@ export class ImgFieldsPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.fieldSubscription.unsubscribe();
+
     }
 
     onDelete() {

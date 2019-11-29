@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {WeatherPage} from './weather.page';
+import {PreferiteOperationsModalPage} from './preferite-operations-modal.page';
 
 const routes: Routes = [
     {
         path: '',
-        component: WeatherPage
+        component: PreferiteOperationsModalPage
     }
 ];
 
@@ -14,5 +14,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class WeatherPageRoutingModule {
+export class PreferiteOperationsModalPageRoutingModule {
 }

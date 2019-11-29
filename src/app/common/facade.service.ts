@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {FieldsService} from './fields.service';
 import {OperationsService} from './operations.service';
+import {Operation} from './operation.model';
+import {DefaultOperationsService} from './default-operations.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FacadeService {
 
-    constructor(private fieldsService: FieldsService, private operationsService: OperationsService) {
+    constructor(private fieldsService: FieldsService, private operationsService: OperationsService, private defaultOperationsService: DefaultOperationsService) {
     }
 
     get fields() {
@@ -16,6 +18,11 @@ export class FacadeService {
 
     get operations() {
         return this.operationsService.operations;
+    }
+
+    get defaultOperations() {
+        return this.defaultOperationsService.defaultOperations;
+
     }
 
     createField(name: string,
@@ -49,8 +56,8 @@ export class FacadeService {
         return this.fieldsService.updateField(fieldId, name, position, description, imagePreviewUrl, cultivation, owner, area, perimeter);
     }
 
-    getFieldOperations(fieldId: string) {
-        return this.operationsService.getFieldOperations(fieldId);
+    getFieldOperations(fieldId: string, operations: Operation []) {
+        return this.operationsService.getFieldOperations(fieldId, operations);
     }
 
     createOperation(name: string,
@@ -62,7 +69,7 @@ export class FacadeService {
     }
 
     removeOperation(operationId: string) {
-        this.operationsService.removeOperation(operationId);
+        return this.operationsService.removeOperation(operationId);
     }
 
     getOperation(operationId: string) {
@@ -74,7 +81,31 @@ export class FacadeService {
                     description: string = 'Descrizione operazione',
                     date: string = '1/1/1970',
                     operator: string = 'Marco Rossi') {
-        this.operationsService.updateOperation(operationId, name, description, date, operator);
+        return this.operationsService.updateOperation(operationId, name, description, date, operator);
     }
+
+    getDefaultOperation(operationId: string) {
+        return this.defaultOperationsService.getDefaultOperation(operationId);
+    }
+
+    createDeafaultOperation(name: string,
+                            description: string = 'Descrizione operazione',
+                            date: string = '1/1/1970',
+                            operator: string = 'Marco Rossi') {
+        return this.defaultOperationsService.createDeafaultOperation(name, description, date, operator);
+    }
+
+    removeDefaultOperation(operationId: string) {
+        return this.defaultOperationsService.removeDefaultOperation(operationId);
+    }
+
+    updateDefaultOperation(operationId: string,
+                           name: string,
+                           description: string = 'Descrizione operazione',
+                           date: string = '1/1/1970',
+                           operator: string = 'Marco Rossi') {
+        return this.defaultOperationsService.updateDefaultOperation(operationId, name, description, date, operator);
+    }
+
 
 }

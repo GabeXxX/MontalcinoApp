@@ -1,8 +1,8 @@
-<ion-header>
+<ion-header translucent>
     <ion-toolbar>
-        <ion-title>Operazioni {{field.name}}</ion-title>
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+        <ion-title>Operazioni preferite</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal()">Chiudi</ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -12,8 +12,9 @@
         <ion-row>
             <ion-col offset-sm="2" size="12" size-sm="8">
                 <ion-list>
-                    <ion-item-sliding *ngFor="let operation of operations">
-                        <ion-item [routerLink]="['/', 'fields', field.id, 'field-operations', operation.operationId]"
+                    <ion-item-sliding *ngFor="let operation of preferiteOperations">
+                        <ion-item (click)="onSelectPreferite(operation.operationId)"
+                                  [routerLink]="['/', 'fields', field.id, 'field-operations', 'create-operation']"
                                   detail>
                             <ion-label>
                                 <h2>{{operation.name}}</h2>
@@ -24,7 +25,6 @@
                             <ion-item-option (click)="onDelete(operation.operationId)" color="danger">
                                 <ion-icon name="trash" slot="icon-only"></ion-icon>
                             </ion-item-option>
-
                         </ion-item-options>
                     </ion-item-sliding>
 
@@ -34,11 +34,8 @@
     </ion-grid>
 
     <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-        <ion-fab-button (click)="presentActionSheet()">
+        <ion-fab-button>
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-
-    <!--[routerLink]="['/', 'fields', field.id, 'field-operations', 'create-operation']"-->
 </ion-content>
-

@@ -15,6 +15,7 @@ export class OperationDetailsPage implements OnInit {
     private operation: Operation;
     private field: Field;
     private fieldSubscription: Subscription;
+    private fieldSubscription1: Subscription;
 
 
     constructor(private facadeService: FacadeService,
@@ -28,7 +29,9 @@ export class OperationDetailsPage implements OnInit {
                 this.navController.navigateBack('/fields');
                 return;
             }
-            this.fieldSubscription = this.facadeService.getOperation(paramMap.get('operationId'))
+            this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
+                .subscribe((field) => this.field = field);
+            this.fieldSubscription1 = this.facadeService.getOperation(paramMap.get('operationId'))
                 .subscribe((operation) => {
                     this.operation = operation;
                 });
@@ -37,7 +40,7 @@ export class OperationDetailsPage implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.fieldSubscription.unsubscribe();
+
     }
 
 }

@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
-import {WeatherPage} from './weather.page';
+import {PreferiteOperationsModalPage} from './preferite-operations-modal.page';
 
-describe('WeatherPage', () => {
-    let component: WeatherPage;
-    let fixture: ComponentFixture<WeatherPage>;
+describe('PreferiteOperationsModalPage', () => {
+    let component: PreferiteOperationsModalPage;
+    let fixture: ComponentFixture<PreferiteOperationsModalPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [WeatherPage],
+            declarations: [PreferiteOperationsModalPage],
             imports: [IonicModule.forRoot()]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(WeatherPage);
+        fixture = TestBed.createComponent(PreferiteOperationsModalPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

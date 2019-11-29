@@ -10,7 +10,6 @@ import {FacadeService} from '../../common/facade.service';
 export class NewFieldPage implements OnInit {
 
     form: FormGroup;
-    tmpFieldId = '5';
 
     constructor(private facadeService: FacadeService) {
     }

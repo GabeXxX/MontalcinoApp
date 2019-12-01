@@ -7,15 +7,18 @@ import {IonicModule} from '@ionic/angular';
 import {OperationsPageRoutingModule} from './operations-routing.module';
 
 import {OperationsPage} from './operations.page';
+import {SelectPreferiteOperationModalPageModule} from './select-preferite-operation-modal/select-preferite-operation-modal.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        OperationsPageRoutingModule
+        OperationsPageRoutingModule,
+        SelectPreferiteOperationModalPageModule
     ],
-    declarations: [OperationsPage]
+    declarations: [OperationsPage],
+
 })
 export class OperationsPageModule {
 }

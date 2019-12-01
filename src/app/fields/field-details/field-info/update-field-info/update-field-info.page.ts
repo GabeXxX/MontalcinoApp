@@ -74,6 +74,7 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
 
     onUpdateField() {
         this.facadeService.updateField(this.field.id, this.form.value.name, this.form.value.position, this.form.value.description, this.field.imagePreviewUrl, this.form.value.cultivation, this.form.value.owner, this.form.value.area, this.form.value.perimeter).subscribe();
+        this.navController.pop();
     }
 
     ngOnDestroy(): void {

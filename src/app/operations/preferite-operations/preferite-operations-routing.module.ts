@@ -1,16 +1,20 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {PreferiteOperationsModalPage} from './preferite-operations-modal.page';
+import {PreferiteOperationsPage} from './preferite-operations.page';
 
 const routes: Routes = [
     {
         path: '',
-        component: PreferiteOperationsModalPage
+        component: PreferiteOperationsPage
     },
     {
         path: 'create-preferite-operation',
         loadChildren: () => import('./create-preferite-operation/create-preferite-operation.module').then(m => m.CreatePreferiteOperationPageModule)
+    },
+    {
+        path: ':preferiteOperationId',
+        loadChildren: () => import('./preferite-operation-details/preferite-operation-details.module').then(m => m.PreferiteOperationDetailsPageModule)
     }
 ];
 
@@ -18,5 +22,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class PreferiteOperationsModalPageRoutingModule {
+export class PreferiteOperationsPageRoutingModule {
 }

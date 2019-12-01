@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button [defaultHref]="['/', 'operation', operation.operationId]"></ion-back-button>
         </ion-buttons>
         <ion-title>Aggiorna dettagli {{operation.name}}</ion-title>
         <ion-buttons slot="primary">
@@ -46,4 +46,5 @@
             </ion-grid>
         </form>
 
-</ion-content>
+    </ion-content>
+

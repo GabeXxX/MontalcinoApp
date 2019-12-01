@@ -2,44 +2,113 @@
     <ion-toolbar>
         <ion-title>Operazioni {{field.name}}</ion-title>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button [defaultHref]="['/', 'fields', field.id]"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row>
-            <ion-col offset-sm="2" size="12" size-sm="8">
-                <ion-list>
-                    <ion-item-sliding *ngFor="let operation of operations">
-                        <ion-item [routerLink]="['/', 'fields', field.id, 'field-operations', operation.operationId]"
-                                  detail>
-                            <ion-label>
-                                <h2>{{operation.name}}</h2>
-                                <p>{{operation.description}}</p>
-                            </ion-label>
-                            <ion-checkbox [(ngModel)]="operation.isDone" slot="start"></ion-checkbox>
-                        </ion-item>
-                        <ion-item-options>
-                            <ion-item-option (click)="onDelete(operation.operationId)" color="danger">
-                                <ion-icon name="trash" slot="icon-only"></ion-icon>
-                            </ion-item-option>
+    <ion-segment [(ngModel)]="seg">
+        <ion-segment-button value="done">Effettuate</ion-segment-button>
+        <ion-segment-button value="notDone">Da fare</ion-segment-button>
+        <ion-segment-button value="all">Tutte</ion-segment-button>
+    </ion-segment>
 
-                        </ion-item-options>
-                    </ion-item-sliding>
+    <ng-container [(ngSwitch)]="seg">
+        <ion-grid>
+            <ion-row>
+                <ion-col offset-sm="2" size="12" size-sm="8">
+                    <ion-list *ngSwitchCase="'all'">
+                        <ion-item-sliding *ngFor="let operation of operations">
+                            <ion-item lines="full">
+                                <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                                <ion-label (click)="onDetails(operation.operationId)" slot="start">
+                                    <h2>{{operation.name}}</h2>
+                                    <p>{{operation.description}}</p>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item-options>
+                                <ion-item-option (click)="onDelete(operation.operationId)" color="danger">
+                                    <ion-icon name="trash" slot="icon-only"></ion-icon>
+                                </ion-item-option>
+                            </ion-item-options>
+                        </ion-item-sliding>
+                    </ion-list>
 
-                </ion-list>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+                    <ion-list *ngSwitchCase="'done'">
+                        <ion-item-sliding *ngFor="let operation of operations">
+                            <ng-container *ngIf="operation.isDone">
+                                <ion-item lines="full">
+                                    <ion-label (click)="onDetails(operation.operationId)" slot="start">
+                                        <h2>{{operation.name}}</h2>
+                                        <p>{{operation.description}}</p>
+                                    </ion-label>
+                                    <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                                </ion-item>
+                                <ion-item-options>
+                                    <ion-item-option (click)="onDelete(operation.operationId)" color="danger">
+                                        <ion-icon name="trash" slot="icon-only"></ion-icon>
+                                    </ion-item-option>
 
-    <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-        <ion-fab-button (click)="presentActionSheet()">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+                                </ion-item-options>
+                            </ng-container>
+                        </ion-item-sliding>
+                    </ion-list>
 
+                    <ion-list *ngSwitchCase="'notDone'">
+                        <ion-item-sliding *ngFor="let operation of operations">
+                            <ng-container *ngIf="!operation.isDone">
+                                <ion-item lines="full">
+                                    <ion-label (click)="onDetails(operation.operationId)" slot="start">
+                                        <h2>{{operation.name}}</h2>
+                                        <p>{{operation.description}}</p>
+                                    </ion-label>
+                                    <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                                </ion-item>
+                                <ion-item-options>
+                                    <ion-item-option (click)="onDelete(operation.operationId)" color="danger">
+                                        <ion-icon name="trash" slot="icon-only"></ion-icon>
+                                    </ion-item-option>
+
+                                </ion-item-options>
+                            </ng-container>
+                        </ion-item-sliding>
+                    </ion-list>
+
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+            <ion-fab-button (click)="presentActionSheet()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </ng-container>
     <!--[routerLink]="['/', 'fields', field.id, 'field-operations', 'create-operation']"-->
 </ion-content>
 
+<!--
+0
+
+I just had a similar problem and found a nice solution for it in ionic 4 by using the slots of ion-item.
+
+<ion-item lines="full">
+  <ion-icon slot="start" name="at" (click)="iconClicked()"></ion-icon>
+
+  <ion-label slot="start" (click)="labelClicked()">
+    This is a separately clickable label
+  </ion-label>
+  <ion-checkbox slot="end"></ion-checkbox>
+</ion-item>
+Explanation
+
+The elements in the start slot of the ion-item are not triggered when clicking the checkbox.
+The start slot has no bottom border by default so it must be set by adding lines="full" to the ion-item;
+Be aware, that the main slot still is rendered with a large width. That may lead to some hidden content. In this case this can be fixed with a css tweak like this.
+
+ion-item ion-label {
+  overflow: visible;
+}
+-->

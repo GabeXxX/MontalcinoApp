@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Operation} from '../../../../../common/operation.model';
-import {FacadeService} from '../../../../../common/facade.service';
+import {Operation} from '../../../common/operation.model';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FacadeService} from '../../../common/facade.service';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-update-operation-details',
@@ -17,8 +17,6 @@ export class UpdateOperationDetailsPage implements OnInit {
     defName: string;
     defDescription: string;
     defOperator: string;
-
-    defOperationsOptions: string [] = ['Operazione 1', 'Operazione 2', 'Operazione 3', 'Operazione 4', 'Operazione 5'];
 
 
     constructor(private facadeService: FacadeService, private navController: NavController, private activatedRoute: ActivatedRoute) {
@@ -48,8 +46,8 @@ export class UpdateOperationDetailsPage implements OnInit {
         });
 
         this.activatedRoute.paramMap.subscribe(paramMap => {
-            if (!paramMap.has('operationId') || !paramMap.has('fieldId')) {
-                this.navController.navigateBack('/fields');
+            if (!paramMap.has('operationId')) {
+                this.navController.navigateBack('/operations');
                 return;
             }
             this.facadeService.getOperation(paramMap.get('operationId')).subscribe((operation) => {
@@ -69,5 +67,6 @@ export class UpdateOperationDetailsPage implements OnInit {
         this.defOperator = this.operation.operator;
 
         this.facadeService.updateOperation(this.operation.operationId, this.form.value.name, this.form.value.description, new Date(this.form.value.date).toLocaleDateString(), this.form.value.operator).subscribe();
+        this.navController.pop();
     }
 }

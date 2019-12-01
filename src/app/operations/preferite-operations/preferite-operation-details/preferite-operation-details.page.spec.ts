@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
-import {ListFieldsPage} from './list-fields.page';
+import {PreferiteOperationDetailsPage} from './preferite-operation-details.page';
 
-describe('ListFieldsPage', () => {
-    let component: ListFieldsPage;
-    let fixture: ComponentFixture<ListFieldsPage>;
+describe('PreferiteOperationDetailsPage', () => {
+    let component: PreferiteOperationDetailsPage;
+    let fixture: ComponentFixture<PreferiteOperationDetailsPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ListFieldsPage],
+            declarations: [PreferiteOperationDetailsPage],
             imports: [IonicModule.forRoot()]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ListFieldsPage);
+        fixture = TestBed.createComponent(PreferiteOperationDetailsPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

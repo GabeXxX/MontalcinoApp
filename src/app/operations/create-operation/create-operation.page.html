@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-title>Nuova Operazione</ion-title>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button [defaultHref]="['/', 'operations']"></ion-back-button>
         </ion-buttons>
         <ion-buttons slot="primary">
             <ion-button (click)="onCreateOperation()" type="submit">
@@ -19,13 +19,13 @@
                 <ion-col offset-sm="3" size="12" size-sm="6">
                     <ion-item>
                         <ion-label position="floating">Nome</ion-label>
-                        <ion-input [ngModel]="defName" [value]="defName" formControlName="name"></ion-input>
+                        <ion-input formControlName="name"></ion-input>
                     </ion-item>
 
                     <ion-item>
                         <ion-label position="floating">Descrizione</ion-label>
-                        <ion-input [ngModel]="defDescription" [value]="defDescription"
-                                   formControlName="description"></ion-input>
+                        <ion-input
+                                formControlName="description"></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -36,8 +36,16 @@
 
                     <ion-item>
                         <ion-label position="floating">Operatore</ion-label>
-                        <ion-input [ngModel]="defOperator" [value]="defOperator" formControlName="operator"></ion-input>
+                        <ion-input formControlName="operator"></ion-input>
                     </ion-item>
+
+                    <ion-item>
+                        <ion-select formControlName="field" placeholder="Seleziona un campo">
+                            <ion-select-option *ngFor="let field of fields"
+                                               [value]=field.id>{{field.name}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+
                 </ion-col>
             </ion-row>
         </ion-grid>

@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
-import {ImgFieldsPage} from './img-fields.page';
+import {PreferiteOperationsPage} from './preferite-operations.page';
 
-describe('ImgFieldsPage', () => {
-    let component: ImgFieldsPage;
-    let fixture: ComponentFixture<ImgFieldsPage>;
+describe('PreferiteOperationsPage', () => {
+    let component: PreferiteOperationsPage;
+    let fixture: ComponentFixture<PreferiteOperationsPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ImgFieldsPage],
+            declarations: [PreferiteOperationsPage],
             imports: [IonicModule.forRoot()]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ImgFieldsPage);
+        fixture = TestBed.createComponent(PreferiteOperationsPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

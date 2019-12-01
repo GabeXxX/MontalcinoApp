@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Field} from '../../../common/field.model';
 import {FacadeService} from '../../../common/facade.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ActionSheetController, NavController} from '@ionic/angular';
+import {ActionSheetController, ModalController, NavController} from '@ionic/angular';
 import {Operation} from '../../../common/operation.model';
-import {Subscription} from 'rxjs';
+import {SelectPreferiteOperationModalPage} from '../../../operations/select-preferite-operation-modal/select-preferite-operation-modal.page';
 
 @Component({
     selector: 'app-field-operations',
@@ -14,8 +14,7 @@ import {Subscription} from 'rxjs';
 export class FieldOperationsPage implements OnInit {
     private operations: Operation[];
     private field: Field;
-    private fieldSubscription: Subscription;
-    private subscription1: Subscription;
+    private seg: string;
 
 
     constructor(private facadeService: FacadeService,
@@ -23,6 +22,7 @@ export class FieldOperationsPage implements OnInit {
                 private navController: NavController,
                 private actionSheetController: ActionSheetController,
                 private router: Router,
+                private modalController: ModalController
     ) {
     }
 
@@ -32,7 +32,7 @@ export class FieldOperationsPage implements OnInit {
                 this.navController.navigateBack('/fields');
                 return;
             }
-            this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
+            this.facadeService.getField(paramMap.get('fieldId'))
                 .subscribe((field) => this.field = field);
 
             this.facadeService.operations.subscribe((operations) => {
@@ -43,6 +43,8 @@ export class FieldOperationsPage implements OnInit {
 
         });
 
+        this.seg = 'all';
+
     }
 
     ngOnDestroy(): void {
@@ -50,7 +52,7 @@ export class FieldOperationsPage implements OnInit {
     }
 
     onDelete(operationId: string) {
-        this.subscription1 = this.facadeService.removeOperation(operationId).subscribe();
+        this.facadeService.removeOperation(operationId).subscribe();
 
     }
 
@@ -63,19 +65,34 @@ export class FieldOperationsPage implements OnInit {
                 icon: 'document',
                 handler: () => {
                     console.log('new empty operation clicked');
-                    this.router.navigate(['/', 'fields', this.field.id, 'field-operations', 'create-operation']);
+                    this.router.navigate(['/', 'operations', 'create-operation']);
                 }
             }, {
                 text: 'Operazioni preferite',
                 icon: 'heart',
                 role: 'destructive',
                 handler: () => {
-                    this.router.navigate(['/', 'fields', this.field.id, 'field-operations', 'preferite-operations-modal']);
+                    this.presentModal();
                 }
 
             }]
         });
         await actionSheet.present();
     }
+
+    onDetails(operationId: string) {
+        this.router.navigate(['/', 'operations', operationId]);
+    }
+
+    async presentModal() {
+        const modal = await this.modalController.create({
+            component: SelectPreferiteOperationModalPage,
+            componentProps: {
+                fieldId: this.field.id //pass data to modal
+            }
+        });
+        return await modal.present();
+    }
+
 
 }

@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {FieldOperationsPageRoutingModule} from './field-operations-routing.module';
 
 import {FieldOperationsPage} from './field-operations.page';
+import {SelectPreferiteOperationModalPageModule} from '../../../operations/select-preferite-operation-modal/select-preferite-operation-modal.module';
 
 
 @NgModule({
@@ -14,9 +15,11 @@ import {FieldOperationsPage} from './field-operations.page';
         CommonModule,
         FormsModule,
         IonicModule,
-        FieldOperationsPageRoutingModule
+        FieldOperationsPageRoutingModule,
+        SelectPreferiteOperationModalPageModule
     ],
     declarations: [FieldOperationsPage],
+
 })
 export class FieldOperationsPageModule {
 }

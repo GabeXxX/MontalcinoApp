@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FacadeService} from '../../common/facade.service';
+import {NavController} from '@ionic/angular';
 
 @Component({
     selector: 'app-new-field',
@@ -11,7 +12,7 @@ export class NewFieldPage implements OnInit {
 
     form: FormGroup;
 
-    constructor(private facadeService: FacadeService) {
+    constructor(private facadeService: FacadeService, private navCtrl: NavController) {
     }
 
     ngOnInit() {
@@ -62,7 +63,7 @@ export class NewFieldPage implements OnInit {
             this.form.value.area,
             this.form.value.perimeter);
 
-
+        this.navCtrl.pop();
     }
 
 }

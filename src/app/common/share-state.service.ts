@@ -8,7 +8,14 @@ export class ShareStateService {
     constructor() {
     }
 
-    private _data: any = null;
+    private _data = {
+        defaultFieldId: '',
+        defaultName: '',
+        defaultDescription: '',
+        defaultDate: new Date().toLocaleDateString(),
+        defaultOperator: ''
+    };
+
 
     get data() {
         return this._data;
@@ -16,5 +23,15 @@ export class ShareStateService {
 
     set data(value) {
         this._data = value;
+    }
+
+    clear() {
+        this._data = {
+            defaultFieldId: '',
+            defaultName: '',
+            defaultDescription: '',
+            defaultDate: new Date().toLocaleDateString(),
+            defaultOperator: ''
+        };
     }
 }

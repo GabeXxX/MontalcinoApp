@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ActionSheetController, ModalController, NavController} from '@ionic/angular';
 import {Operation} from '../../../common/operation.model';
 import {SelectPreferiteOperationModalPage} from '../../../operations/select-preferite-operation-modal/select-preferite-operation-modal.page';
+import {ShareStateService} from '../../../common/share-state.service';
 
 @Component({
     selector: 'app-field-operations',
@@ -22,7 +23,8 @@ export class FieldOperationsPage implements OnInit {
                 private navController: NavController,
                 private actionSheetController: ActionSheetController,
                 private router: Router,
-                private modalController: ModalController
+                private modalController: ModalController,
+                private shareState: ShareStateService
     ) {
     }
 
@@ -65,6 +67,7 @@ export class FieldOperationsPage implements OnInit {
                 icon: 'document',
                 handler: () => {
                     console.log('new empty operation clicked');
+                    this.shareState.data.defaultFieldId = this.field.id;
                     this.router.navigate(['/', 'operations', 'create-operation']);
                 }
             }, {
@@ -72,6 +75,7 @@ export class FieldOperationsPage implements OnInit {
                 icon: 'heart',
                 role: 'destructive',
                 handler: () => {
+                    this.shareState.data.defaultFieldId = this.field.id;
                     this.presentModal();
                 }
 

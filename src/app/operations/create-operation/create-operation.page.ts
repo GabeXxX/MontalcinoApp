@@ -14,7 +14,11 @@ import {ShareStateService} from '../../common/share-state.service';
 export class CreateOperationPage implements OnInit {
     form: FormGroup;
     fields: Field[];
-
+    defaultFieldId = '';
+    defaultName = '';
+    defaultDescription = '';
+    defaultDate = '';
+    defaultOperator = '';
 
     constructor(private facadeService: FacadeService,
                 private activatedRoute: ActivatedRoute,
@@ -52,6 +56,15 @@ export class CreateOperationPage implements OnInit {
         this.facadeService.fields.subscribe((fields) => {
             this.fields = fields;
         });
+
+        this.defaultDate = this.shareStateService.data.defaultDate;
+        this.defaultDescription = this.shareStateService.data.defaultDescription;
+        this.defaultFieldId = this.shareStateService.data.defaultFieldId;
+        this.defaultName = this.shareStateService.data.defaultName;
+        this.defaultOperator = this.shareStateService.data.defaultOperator;
+
+        this.shareStateService.clear();
+
 
 
     }

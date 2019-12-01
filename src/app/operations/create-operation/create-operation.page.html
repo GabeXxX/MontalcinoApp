@@ -19,28 +19,32 @@
                 <ion-col offset-sm="3" size="12" size-sm="6">
                     <ion-item>
                         <ion-label position="floating">Nome</ion-label>
-                        <ion-input formControlName="name"></ion-input>
+                        <ion-input [(ngModel)]="defaultName" [value]="defaultName" formControlName="name"></ion-input>
                     </ion-item>
 
                     <ion-item>
                         <ion-label position="floating">Descrizione</ion-label>
-                        <ion-input
-                                formControlName="description"></ion-input>
+                        <ion-input [(ngModel)]="defaultDescription" [value]="defaultDescription"
+                                   formControlName="description"></ion-input>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Data</ion-label>
-                        <ion-datetime displayFormat="YYYY/MM/DD" formControlName="date" max="2099-12-31"
+                        <ion-datetime [(ngModel)]="defaultDate" [value]="defaultDate" displayFormat="YYYY/MM/DD"
+                                      formControlName="date" max="2099-12-31"
                                       min="1970-01-01" pickerFormat="YYYY/MM/DD"></ion-datetime>
                     </ion-item>
 
                     <ion-item>
                         <ion-label position="floating">Operatore</ion-label>
-                        <ion-input formControlName="operator"></ion-input>
+                        <ion-input [(ngModel)]="defaultOperator" [value]="defaultOperator"
+                                   formControlName="operator"></ion-input>
                     </ion-item>
 
                     <ion-item>
-                        <ion-select formControlName="field" placeholder="Seleziona un campo">
+                        <ion-label>Campo</ion-label>
+                        <ion-select [(ngModel)]="defaultFieldId" [value]="defaultFieldId" formControlName="field"
+                                    placeholder="Seleziona un campo">
                             <ion-select-option *ngFor="let field of fields"
                                                [value]=field.id>{{field.name}}</ion-select-option>
                         </ion-select>

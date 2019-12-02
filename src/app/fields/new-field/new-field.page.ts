@@ -1,7 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FacadeService} from '../../common/facade.service';
-import {NavController} from '@ionic/angular';
+import {ModalController, NavController} from '@ionic/angular';
+import {GoogleMapsComponent} from './google-maps/google-maps.component';
+import {HttpClient} from '@angular/common/http';
+import {map, switchMap} from 'rxjs/operators';
+import {FieldLocation} from '../../common/location.model';
+import {of} from 'rxjs';
+
 
 @Component({
     selector: 'app-new-field',
@@ -10,9 +16,11 @@ import {NavController} from '@ionic/angular';
 })
 export class NewFieldPage implements OnInit {
 
-    form: FormGroup;
+    private form: FormGroup;
+    private defPosition = '';
+    private selectedLocationImage = '/assets/fieldPreview.jpg';
 
-    constructor(private facadeService: FacadeService, private navCtrl: NavController) {
+    constructor(private facadeService: FacadeService, private navCtrl: NavController, private modalCtrl: ModalController, private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -57,13 +65,63 @@ export class NewFieldPage implements OnInit {
         this.facadeService.createField(this.form.value.name,
             this.form.value.position,
             this.form.value.description,
-            '/assets/fieldPreview.jpg',
+            this.selectedLocationImage,
             this.form.value.cultivation,
             this.form.value.owner,
             this.form.value.area,
             this.form.value.perimeter);
 
         this.navCtrl.pop();
+    }
+
+    async presentModal() {
+        const modal = await this.modalCtrl.create({
+            component: GoogleMapsComponent
+        });
+        modal.onDidDismiss().then((result) => {
+            if (!result.data) {
+                return;
+            }
+            console.log(result);
+            const pickedLocation: FieldLocation = {
+                lat: result.data.lat,
+                lng: result.data.lng,
+                address: null,
+                staticMapUrl: null,
+                zoom: 18
+            };
+            this.getAddress(result.data.lat, result.data.lng).pipe(switchMap((address) => {
+                    console.log(address);
+                    this.defPosition = address;
+                    pickedLocation.address = address;
+                    return of(this.getMapImage(result.data.lat, result.data.lng, 18));
+                })
+            ).subscribe((staticMapImgUrl) => {
+                console.log(staticMapImgUrl);
+                pickedLocation.staticMapUrl = staticMapImgUrl;
+                this.selectedLocationImage = staticMapImgUrl;
+            });
+        });
+
+        return await modal.present();
+    }
+
+
+    private getAddress(lat: number, lng: number) {
+        // tslint:disable-next-line:max-line-length
+        return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyDi9qNWoPh-RGHU3yGo-xCrP7M2bIFAMR4')
+            .pipe(map((geoData: any) => {
+                if (!geoData || !geoData.results || geoData.results.length === 0) {
+                    return null;
+                }
+                return geoData.results[0].formatted_address;
+            }));
+    }
+
+    private getMapImage(lat: number, lng: number, zoom: number) {
+        return ('https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&zoom=' + zoom + '&size=800x600&maptype=hybrid' +
+            '&markers=color:red%7Clabel:Field%7C+' + lat + ',' + lng +
+            '&key=AIzaSyDi9qNWoPh-RGHU3yGo-xCrP7M2bIFAMR4');
     }
 
 }

@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref='/fields/tabs/listView'></ion-back-button>
+            <ion-back-button defaultHref='/fields'></ion-back-button>
         </ion-buttons>
         <ion-title>Aggiungi Campo</ion-title>
         <ion-buttons slot="primary">
@@ -24,7 +24,16 @@
 
                     <ion-item>
                         <ion-label position="floating">Posizione</ion-label>
-                        <ion-input formControlName="position"></ion-input>
+                        <ion-input [(ngModel)]="defPosition" [value]="defPosition"
+                                   formControlName="position"></ion-input>
+                    </ion-item>
+
+                    <ion-item lines="none">
+
+                        <ion-button (click)="presentModal()">
+                            <ion-icon name="map"></ion-icon>
+                            Seleziona da Mappa
+                        </ion-button>
                     </ion-item>
 
                     <ion-item>
@@ -50,6 +59,13 @@
                     <ion-item>
                         <ion-label position="floating">Proprietario</ion-label>
                         <ion-input formControlName="owner"></ion-input>
+                    </ion-item>
+
+                    <ion-item lines="none">
+                        <div>
+                            <ion-img *ngIf="selectedLocationImage" [src]="selectedLocationImage"></ion-img>
+                        </div>
+
                     </ion-item>
 
                 </ion-col>

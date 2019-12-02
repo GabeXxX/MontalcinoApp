@@ -19,10 +19,10 @@ export class FieldsService {
     // non appena uno si subscribe()
 
     private _fields = new BehaviorSubject<Field[]>([
-        new Field('Campo 1', '1', 'Coltivazione di Brunello', 'Via del Brunello 16', 'https://source.unsplash.com/1600x900/?wineyards'),
-        new Field('Campo 2', '2', 'Coltivazione di Rosso', 'Via del Rosso 35', 'https://source.unsplash.com/1600x900/?nature, wine'),
-        new Field('Campo 3', '3', 'Coltivazione di uva da tavola', 'Via del Grappolo 18', 'https://source.unsplash.com/1600x900/?wine'),
-        new Field('Campo 4', '4', 'Coltivazione di uva bianca', 'Via della Vite 2', 'https://source.unsplash.com/1600x900/?nature, green'),
+        new Field('Campo 1', '1', 'Coltivazione di Brunello', 'Via del Brunello 16', '/assets/fieldPreview.jpg'),
+        new Field('Campo 2', '2', 'Coltivazione di Rosso', 'Via del Rosso 35', '/assets/fieldPreview.jpg'),
+        new Field('Campo 3', '3', 'Coltivazione di uva da tavola', 'Via del Grappolo 18', '/assets/fieldPreview.jpg'),
+        new Field('Campo 4', '4', 'Coltivazione di uva bianca', 'Via della Vite 2', '/assets/fieldPreview.jpg'),
     ]); // Behaviur subject are subject with initial value
 
     get fields() {

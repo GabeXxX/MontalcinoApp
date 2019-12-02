@@ -6,5 +6,5 @@ export interface Coordinates {
 export interface FieldLocation extends Coordinates {
     address: string;
     staticMapUrl: string;
-    zoom: 16;
+    zoom: number;
 }

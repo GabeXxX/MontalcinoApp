@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {NewFieldPageRoutingModule} from './new-field-routing.module';
 
 import {NewFieldPage} from './new-field.page';
-import {GoogleMapsComponent} from './google-maps/google-maps.component';
+import {GoogleMapsModule} from '../google-maps/google-maps.module';
 
 @NgModule({
     imports: [
@@ -16,10 +16,10 @@ import {GoogleMapsComponent} from './google-maps/google-maps.component';
         IonicModule,
         NewFieldPageRoutingModule,
         ReactiveFormsModule,
+        GoogleMapsModule
 
     ],
-    declarations: [NewFieldPage, GoogleMapsComponent],
-    entryComponents: [GoogleMapsComponent]
+    declarations: [NewFieldPage]
 })
 export class NewFieldPageModule {
 }

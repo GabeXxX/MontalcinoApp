@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {UpdateFieldInfoPageRoutingModule} from './update-field-info-routing.module';
 
 import {UpdateFieldInfoPage} from './update-field-info.page';
+import {GoogleMapsModule} from '../../../google-maps/google-maps.module';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {UpdateFieldInfoPage} from './update-field-info.page';
         FormsModule,
         IonicModule,
         UpdateFieldInfoPageRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        GoogleMapsModule
     ],
     declarations: [UpdateFieldInfoPage]
 })

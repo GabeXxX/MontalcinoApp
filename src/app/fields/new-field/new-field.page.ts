@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FacadeService} from '../../common/facade.service';
 import {ModalController, NavController} from '@ionic/angular';
-import {GoogleMapsComponent} from './google-maps/google-maps.component';
+import {GoogleMapsComponent} from '../google-maps/google-maps.component';
 import {HttpClient} from '@angular/common/http';
 import {map, switchMap} from 'rxjs/operators';
 import {FieldLocation} from '../../common/location.model';
@@ -119,6 +119,7 @@ export class NewFieldPage implements OnInit {
     }
 
     private getMapImage(lat: number, lng: number, zoom: number) {
+        // tslint:disable-next-line:max-line-length
         return ('https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&zoom=' + zoom + '&size=800x600&maptype=hybrid' +
             '&markers=color:red%7Clabel:Field%7C+' + lat + ',' + lng +
             '&key=AIzaSyDi9qNWoPh-RGHU3yGo-xCrP7M2bIFAMR4');

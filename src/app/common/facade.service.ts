@@ -16,8 +16,16 @@ export class FacadeService {
         return this.fieldsService.fields;
     }
 
+    fetchFields() {
+        return this.fieldsService.fetchFields();
+    }
+
     get operations() {
         return this.operationsService.operations;
+    }
+
+    fetchOperations() {
+        return this.operationsService.fetchOperations();
     }
 
     get defaultOperations() {
@@ -31,9 +39,9 @@ export class FacadeService {
                 imagePreviewUrl: string = '/assets/fieldPreview.jpg',
                 cultivation: string = 'Vite',
                 owner: string = 'Azienda Montalcino',
-                area: string = null,
-                perimeter: string = null) {
-        this.fieldsService.createField(name, position, description, imagePreviewUrl, cultivation, owner, area, perimeter);
+                area: number = null,
+                perimeter: number = null) {
+        return this.fieldsService.createField(name, position, description, imagePreviewUrl, cultivation, owner, area, perimeter);
     }
 
     getField(fieldId: string) {
@@ -51,8 +59,8 @@ export class FacadeService {
                 imagePreviewUrl: string = '/assets/fieldPreview.jpg',
                 cultivation: string = 'Vite',
                 owner: string = 'Azienda Montalcino',
-                area: string = null,
-                perimeter: string = null) {
+                area: number = null,
+                perimeter: number = null) {
         return this.fieldsService.updateField(fieldId, name, position, description, imagePreviewUrl, cultivation, owner, area, perimeter);
     }
 
@@ -65,7 +73,7 @@ export class FacadeService {
                     description: string = 'Descrizione operazione',
                     date: string = '1/1/1970',
                     operator: string = 'Marco Rossi') {
-        this.operationsService.createOperation(name, fieldId, description, date, operator);
+        return this.operationsService.createOperation(name, fieldId, description, date, operator);
     }
 
     removeOperation(operationId: string) {
@@ -88,6 +96,10 @@ export class FacadeService {
         return this.defaultOperationsService.getDefaultOperation(operationId);
     }
 
+    fetchDefaultOperations() {
+        return this.defaultOperationsService.fetchDefaultOperations();
+    }
+
     createDeafaultOperation(name: string,
                             description: string = 'Descrizione operazione',
                             date: string = '1/1/1970',
@@ -105,6 +117,10 @@ export class FacadeService {
                            date: string = '1/1/1970',
                            operator: string = 'Marco Rossi') {
         return this.defaultOperationsService.updateDefaultOperation(operationId, name, description, date, operator);
+    }
+
+    operationIsDone(operationId: string) {
+        return this.operationsService.operationIsDone(operationId);
     }
 
 

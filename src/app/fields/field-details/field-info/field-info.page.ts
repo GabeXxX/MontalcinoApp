@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 export class FieldInfoPage implements OnInit {
     private field: Field;
     private fieldSubscription: Subscription;
+    private isLoading = false;
 
 
     constructor(private facadeService: FacadeService,
@@ -26,9 +27,11 @@ export class FieldInfoPage implements OnInit {
                 this.navController.navigateBack('/fields');
                 return;
             }
+            this.isLoading = true;
             this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
                 .subscribe((field) => {
                     this.field = field;
+                    this.isLoading = false;
                 });
 
         });

@@ -7,8 +7,8 @@ export class Field {
                 public imagePreviewUrl: string = '/assets/fieldPreview.jpg',
                 public cultivation: string = 'Vite',
                 public owner: string = 'Azienda Montalcino',
-                public area: string = '100',
-                public perimeter: string = '1000'
+                public area: number = 100,
+                public perimeter: number = 1000
     ) {
 
     }

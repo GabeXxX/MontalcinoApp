@@ -21,15 +21,23 @@ export class OperationsPage implements OnInit {
     }
 
     ngOnInit() {
+
+        this.seg = 'all';
+
         this.facadeService.operations.subscribe((operations) => {
             this.operations = operations;
+            console.log(this.operations);
         });
 
         this.facadeService.fields.subscribe((fields) => {
             this.fields = fields;
         });
 
-        this.seg = 'all';
+
+    }
+
+    ionViewWillEnter() {
+        this.facadeService.fetchOperations().subscribe();
     }
 
     onDelete(operationId: string) {
@@ -68,6 +76,10 @@ export class OperationsPage implements OnInit {
             component: SelectPreferiteOperationModalPage
         });
         return await modal.present();
+    }
+
+    onCheckBox(operationId: string) {
+        this.facadeService.operationIsDone(operationId).subscribe();
     }
 
 }

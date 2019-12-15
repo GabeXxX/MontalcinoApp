@@ -17,6 +17,7 @@ export class UpdateOperationDetailsPage implements OnInit {
     defName: string;
     defDescription: string;
     defOperator: string;
+    private isLoading = false;
 
 
     constructor(private facadeService: FacadeService, private navController: NavController, private activatedRoute: ActivatedRoute) {
@@ -50,22 +51,21 @@ export class UpdateOperationDetailsPage implements OnInit {
                 this.navController.navigateBack('/operations');
                 return;
             }
+            this.isLoading = true;
             this.facadeService.getOperation(paramMap.get('operationId')).subscribe((operation) => {
                 this.operation = operation;
+                this.isLoading = false;
+                this.defDate = this.operation.date;
+                this.defDescription = this.operation.description;
+                this.defName = this.operation.name;
+                this.defOperator = this.operation.operator;
             });
         });
 
-        this.defDate = this.operation.date;
+
     }
 
     onUpdateOperation() {
-        var date = new Date(this.form.value.date);
-
-        this.defDate = this.operation.date;
-        this.defDescription = this.operation.description;
-        this.defName = this.operation.name;
-        this.defOperator = this.operation.operator;
-
         this.facadeService.updateOperation(this.operation.operationId, this.form.value.name, this.form.value.description, new Date(this.form.value.date).toLocaleDateString(), this.form.value.operator).subscribe();
         this.navController.pop();
     }

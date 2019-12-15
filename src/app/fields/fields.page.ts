@@ -19,9 +19,14 @@ export class FieldsPage implements OnInit {
 
     ngOnInit() {
         this.seg = 'list';
-        this.fieldSubscription = this.facadeService.fields.subscribe((fields) => {
+        this.fieldSubscription = this.facadeService.fields.subscribe((fields: Field[]) => {
             this.loadedFields = fields;
+            console.log(this.loadedFields);
         });
+    }
+
+    ionViewWillEnter() {
+        this.facadeService.fetchFields().subscribe();
     }
 
     ngOnDestroy(): void {
@@ -31,7 +36,4 @@ export class FieldsPage implements OnInit {
     onDelete(fieldId: string) {
         this.fieldSubscription1 = this.facadeService.removeField(fieldId).subscribe();
     }
-
-
-
 }

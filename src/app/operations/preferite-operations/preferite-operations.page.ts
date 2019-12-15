@@ -24,4 +24,8 @@ export class PreferiteOperationsPage implements OnInit {
 
     }
 
+    ionViewWillEnter() {
+        this.facadeService.fetchDefaultOperations().subscribe();
+    }
+
 }

@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Operazioni {{field.name}}</ion-title>
-        <ion-buttons slot="start">
+        <ion-title *ngIf="!isLoadingFields">Operazioni {{field.name}}</ion-title>
+        <ion-buttons *ngIf="!isLoadingFields" slot="start">
             <ion-back-button [defaultHref]="['/', 'fields', field.id]"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
@@ -15,13 +15,14 @@
     </ion-segment>
 
     <ng-container [(ngSwitch)]="seg">
-        <ion-grid>
+        <ion-grid *ngIf="!isLoadingOperations">
             <ion-row>
                 <ion-col offset-sm="2" size="12" size-sm="8">
                     <ion-list *ngSwitchCase="'all'">
                         <ion-item-sliding *ngFor="let operation of operations">
                             <ion-item lines="full">
-                                <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                                <ion-checkbox (click)="onCheckBox(operation.operationId)" [(ngModel)]="operation.isDone"
+                                              slot="end"></ion-checkbox>
                                 <ion-label (click)="onDetails(operation.operationId)" slot="start">
                                     <h2>{{operation.name}}</h2>
                                     <p>{{operation.description}}</p>
@@ -43,7 +44,8 @@
                                         <h2>{{operation.name}}</h2>
                                         <p>{{operation.description}}</p>
                                     </ion-label>
-                                    <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                                    <ion-checkbox (click)="onCheckBox(operation.operationId)"
+                                                  [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
                                 </ion-item>
                                 <ion-item-options>
                                     <ion-item-option (click)="onDelete(operation.operationId)" color="danger">
@@ -63,7 +65,8 @@
                                         <h2>{{operation.name}}</h2>
                                         <p>{{operation.description}}</p>
                                     </ion-label>
-                                    <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                                    <ion-checkbox (click)="onCheckBox(operation.operationId)"
+                                                  [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
                                 </ion-item>
                                 <ion-item-options>
                                     <ion-item-option (click)="onDelete(operation.operationId)" color="danger">

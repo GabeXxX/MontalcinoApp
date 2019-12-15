@@ -19,6 +19,7 @@ export class CreateOperationPage implements OnInit {
     defaultDescription = '';
     defaultDate = '';
     defaultOperator = '';
+    private isLoading = false;
 
     constructor(private facadeService: FacadeService,
                 private activatedRoute: ActivatedRoute,
@@ -53,17 +54,20 @@ export class CreateOperationPage implements OnInit {
 
         });
 
+        this.isLoading = true;
         this.facadeService.fields.subscribe((fields) => {
             this.fields = fields;
+            this.defaultDate = this.shareStateService.data.defaultDate;
+            this.defaultDescription = this.shareStateService.data.defaultDescription;
+            this.defaultFieldId = this.shareStateService.data.defaultFieldId;
+            this.defaultName = this.shareStateService.data.defaultName;
+            this.defaultOperator = this.shareStateService.data.defaultOperator;
+            this.shareStateService.clear();
+            console.log(this.defaultName);
+            console.log(this.defaultDescription);
+            this.isLoading = false;
         });
 
-        this.defaultDate = this.shareStateService.data.defaultDate;
-        this.defaultDescription = this.shareStateService.data.defaultDescription;
-        this.defaultFieldId = this.shareStateService.data.defaultFieldId;
-        this.defaultName = this.shareStateService.data.defaultName;
-        this.defaultOperator = this.shareStateService.data.defaultOperator;
-
-        this.shareStateService.clear();
 
 
 
@@ -71,7 +75,13 @@ export class CreateOperationPage implements OnInit {
 
 
     onCreateOperation() {
-        this.facadeService.createOperation(this.form.value.name, this.form.value.field, this.form.value.description, new Date(this.form.value.date).toLocaleDateString(), this.form.value.operator);
+        console.log(this.form.value.field);
+        this.facadeService.createOperation(this.form.value.name,
+            this.form.value.field,
+            this.form.value.description,
+            new Date(this.form.value.date).toLocaleDateString(),
+            this.form.value.operator
+        ).subscribe();
         console.log(this.form);
         this.navController.pop();
     }

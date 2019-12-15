@@ -35,7 +35,8 @@
                                 <h2>{{operation.name}}</h2>
                                 <p>{{operation.description}}</p>
                             </ion-label>
-                            <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                            <ion-checkbox (click)="onCheckBox(operation.operationId)" [(ngModel)]="operation.isDone"
+                                          slot="end"></ion-checkbox>
                         </ion-item>
 
                         <ion-item-options>
@@ -64,7 +65,8 @@
                                 <h2>{{operation.name}}</h2>
                                 <p>{{operation.description}}</p>
                             </ion-label>
-                            <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                            <ion-checkbox (click)="onCheckBox(operation.operationId)" [(ngModel)]="operation.isDone"
+                                          slot="end"></ion-checkbox>
                         </ion-item>
 
 
@@ -94,7 +96,8 @@
                                 <h2>{{operation.name}}</h2>
                                 <p>{{operation.description}}</p>
                             </ion-label>
-                            <ion-checkbox [(ngModel)]="operation.isDone" slot="end"></ion-checkbox>
+                            <ion-checkbox (click)="onCheckBox(operation.operationId)" [(ngModel)]="operation.isDone"
+                                          slot="end"></ion-checkbox>
                         </ion-item>
 
                         <ion-item-options>

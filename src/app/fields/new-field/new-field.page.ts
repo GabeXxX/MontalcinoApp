@@ -69,7 +69,7 @@ export class NewFieldPage implements OnInit {
             this.form.value.cultivation,
             this.form.value.owner,
             this.form.value.area,
-            this.form.value.perimeter);
+            this.form.value.perimeter).subscribe();
 
         this.navCtrl.pop();
     }

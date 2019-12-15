@@ -1,16 +1,16 @@
 <ion-header>
 
     <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons *ngIf="!isLoading" slot="start">
             <ion-back-button [defaultHref]="['/', 'operations', operation.operationId]"></ion-back-button>
         </ion-buttons>
-        <ion-title>Dettagli {{operation.name}}</ion-title>
+        <ion-title *ngIf="!isLoading">Dettagli {{operation.name}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <ion-grid>
+    <ion-grid *ngIf="!isLoading">
         <ion-row>
             <ion-col offset-sm="2" size="12" size-sm="8">
                 <ion-list>
@@ -39,7 +39,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+    <ion-fab *ngIf="!isLoading" horizontal="end" slot="fixed" vertical="bottom">
         <ion-fab-button
                 [routerLink]="['/', 'operations', operation.operationId, 'update-operation-details']">
             <ion-icon name="create"></ion-icon>

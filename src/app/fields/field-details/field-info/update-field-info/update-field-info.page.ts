@@ -21,6 +21,7 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
     private field: Field;
     private defPosition = '';
     private selectedLocationImage = '/assets/fieldPreview.jpg';
+    private isLoading = false;
 
 
     constructor(private facadeService: FacadeService,
@@ -65,6 +66,7 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
 
         });
 
+        this.isLoading = true;
         this.activatedRoute.paramMap.subscribe(paramMap => {
             if (!paramMap.has('fieldId')) {
                 this.navController.navigateBack('/fields');
@@ -72,10 +74,12 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
             }
             this.facadeService.getField(paramMap.get('fieldId')).subscribe((field) => {
                 this.field = field;
+                this.defPosition = this.field.position;
+                this.selectedLocationImage = this.field.imagePreviewUrl;
+                this.isLoading = false;
             });
 
-            this.defPosition = this.field.position;
-            this.selectedLocationImage = this.field.imagePreviewUrl;
+
 
 
         });

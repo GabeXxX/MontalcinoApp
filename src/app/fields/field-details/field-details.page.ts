@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 export class FieldDetailsPage implements OnInit, OnDestroy {
     private field: Field;
     private fieldSubscription: Subscription;
+    private isLoading = true;
 
 
     constructor(private facadeService: FacadeService,
@@ -21,17 +22,23 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
+        console.log(this.field);
         this.activatedRoute.paramMap.subscribe(paramMap => {
             if (!paramMap.has('fieldId')) {
                 this.navController.navigateBack('/fields');
                 return;
             }
+            this.isLoading = true;
             this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
-                .subscribe((field) => {
+                .subscribe((field: Field) => {
                     this.field = field;
+                    console.log(this.field);
+                    this.isLoading = false;
                 });
 
         });
+
     }
 
     ngOnDestroy(): void {

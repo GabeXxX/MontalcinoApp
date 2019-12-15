@@ -16,6 +16,8 @@ export class FieldOperationsPage implements OnInit {
     private operations: Operation[];
     private field: Field;
     private seg: string;
+    private isLoadingOperations = false;
+    private isLoadingFields = false;
 
 
     constructor(private facadeService: FacadeService,
@@ -34,19 +36,31 @@ export class FieldOperationsPage implements OnInit {
                 this.navController.navigateBack('/fields');
                 return;
             }
+            this.isLoadingFields = true;
+            this.isLoadingOperations = true;
             this.facadeService.getField(paramMap.get('fieldId'))
-                .subscribe((field) => this.field = field);
+                .subscribe((field) => {
+                    this.field = field;
+                    this.isLoadingFields = false;
 
-            this.facadeService.operations.subscribe((operations) => {
-                console.log(operations);
-                this.operations = this.facadeService.getFieldOperations(this.field.id, operations);
-                console.log(this.operations);
-            });
+                    this.facadeService.operations.subscribe((operations) => {
+                        console.log(operations);
+                        this.operations = this.facadeService.getFieldOperations(this.field.id, operations);
+                        console.log(this.operations);
+                        this.isLoadingOperations = false;
+                    });
+                });
+
+
 
         });
 
         this.seg = 'all';
 
+    }
+
+    ionViewWillEnter() {
+        this.facadeService.fetchOperations().subscribe();
     }
 
     ngOnDestroy(): void {
@@ -75,6 +89,7 @@ export class FieldOperationsPage implements OnInit {
                 icon: 'heart',
                 role: 'destructive',
                 handler: () => {
+                    console.log(this.field.id, '1');
                     this.shareState.data.defaultFieldId = this.field.id;
                     this.presentModal();
                 }
@@ -96,6 +111,10 @@ export class FieldOperationsPage implements OnInit {
             }
         });
         return await modal.present();
+    }
+
+    onCheckBox(operationId: string) {
+        this.facadeService.operationIsDone(operationId).subscribe();
     }
 
 

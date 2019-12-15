@@ -11,6 +11,7 @@ import {NavController} from '@ionic/angular';
 })
 export class OperationDetailsPage implements OnInit {
     private operation: Operation;
+    private isLoading = false;
 
     constructor(private facadeService: FacadeService, private activatedRoute: ActivatedRoute, private navController: NavController) {
     }
@@ -21,9 +22,11 @@ export class OperationDetailsPage implements OnInit {
                 this.navController.navigateBack('/operations');
                 return;
             }
+            this.isLoading = true;
             this.facadeService.getOperation(paramMap.get('operationId'))
                 .subscribe((operation) => {
                     this.operation = operation;
+                    this.isLoading = false;
                 });
         });
     }

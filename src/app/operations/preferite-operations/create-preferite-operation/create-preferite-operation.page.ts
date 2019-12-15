@@ -40,7 +40,7 @@ export class CreatePreferiteOperationPage implements OnInit {
     }
 
     onCreateOperation() {
-        this.facadeService.createDeafaultOperation(this.form.value.name, this.form.value.description, new Date(this.form.value.date).toLocaleDateString(), this.form.value.operator);
+        this.facadeService.createDeafaultOperation(this.form.value.name, this.form.value.description, new Date(this.form.value.date).toLocaleDateString(), this.form.value.operator).subscribe();
         console.log(this.form);
         this.navCtrl.pop();
     }

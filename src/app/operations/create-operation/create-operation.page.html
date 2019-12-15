@@ -14,7 +14,7 @@
 
 <ion-content>
     <form [formGroup]="form">
-        <ion-grid>
+        <ion-grid *ngIf="!isLoading">
             <ion-row>
                 <ion-col offset-sm="3" size="12" size-sm="6">
                     <ion-item>

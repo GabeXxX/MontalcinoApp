@@ -4,13 +4,17 @@ import {Operation} from './operation.model';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {UniqueIdService} from './unique-id.service';
 import {HttpClient} from '@angular/common/http';
+import {CalendarEventsService} from './calendar-events.service';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class OperationsService {
 
-    constructor(private uniqueId: UniqueIdService, private httpClient: HttpClient) {
+    constructor(private uniqueId: UniqueIdService,
+                private httpClient: HttpClient,
+                private eventsService: CalendarEventsService) {
     }
 
     private _operations = new BehaviorSubject<Operation[]>([
@@ -66,13 +70,6 @@ export class OperationsService {
                 };
             }));
 
-
-        /*return this.operations.pipe(
-            take(1),
-            map((operations) => {
-                return {...operations.find((operation) => operation.operationId === operationId)};
-            })
-        );*/
     }
 
     createOperation(name: string,
@@ -91,6 +88,18 @@ export class OperationsService {
             date,
             operator,
         );
+
+        const str = date;
+        console.log(str);
+        const darr = str.split('/');
+        console.log(darr);
+        let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0]));
+        console.log(time);
+        time = time.toISOString();
+        console.log(time);
+
+
+        this.eventsService.createEvent(operationId, name, time, time).subscribe();
 
         return this.httpClient.post('Http://127.0.0.1:8000/manager/operations', {...newOperation})
             .pipe( /*tap(
@@ -127,6 +136,8 @@ export class OperationsService {
 
 
     removeOperation(operationId: string) {
+        this.eventsService.removeEvent(operationId).subscribe();
+
         return this.httpClient.delete(`Http://127.0.0.1:8000/manager/operations/${operationId}/`).pipe(
             switchMap(() => {
                 return this.operations;
@@ -149,6 +160,17 @@ export class OperationsService {
                     operator: string = 'Marco Rossi',
     ) {
         let updateOperations: Operation[];
+
+        const str = date;
+        console.log(str);
+        const darr = str.split('/');
+        console.log(darr);
+        let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0]));
+        console.log(time);
+        time = time.toISOString();
+        console.log(time);
+
+        this.eventsService.updateEvent(operationId, name, time, time).subscribe();
 
         return this.operations.pipe(
             take(1),

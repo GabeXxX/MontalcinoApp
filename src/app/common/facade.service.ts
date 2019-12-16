@@ -9,7 +9,10 @@ import {DefaultOperationsService} from './default-operations.service';
 })
 export class FacadeService {
 
-    constructor(private fieldsService: FieldsService, private operationsService: OperationsService, private defaultOperationsService: DefaultOperationsService) {
+    constructor(private fieldsService: FieldsService,
+                private operationsService: OperationsService,
+                private defaultOperationsService: DefaultOperationsService,
+    ) {
     }
 
     get fields() {

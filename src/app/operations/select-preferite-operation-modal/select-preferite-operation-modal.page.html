@@ -1,0 +1,30 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title>Operazioni preferite</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal()">Chiudi</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid *ngIf="!isLoading">
+        <ion-row>
+            <ion-col offset-sm="2" size="12" size-sm="8">
+                <ion-list>
+                    <ion-item (click)="onSelectPreferite(operation.operationId)"
+                              *ngFor="let operation of preferiteOperations"
+                              detail>
+                        <ion-label>
+                            <h2>{{operation.name}}</h2>
+                            <p>{{operation.description}}</p>
+                        </ion-label>
+
+                    </ion-item>
+
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

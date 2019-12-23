@@ -17,13 +17,7 @@ export class OperationsService {
                 private eventsService: CalendarEventsService) {
     }
 
-    private _operations = new BehaviorSubject<Operation[]>([
-        /*new Operation('Operazione 1', '1', '1'),
-        new Operation('Operazione 1', '2', '2'),
-        new Operation('Operazione 1', '3', '3'),
-        new Operation('Operazione 1', '4', '4'),
-        new Operation('Operazione 2', '5', '4'),*/
-    ]);
+    private _operations = new BehaviorSubject<Operation[]>([]);
 
 
     get operations() {
@@ -32,8 +26,7 @@ export class OperationsService {
     }
 
     fetchOperations() {
-        // use local machine ip number (preferenze di sistema -> rete -> scritto sotto a stato for retrieving data from
-        // app running on telephone
+
         return this.httpClient.get<Operation[]>('Http://127.0.0.1:8000/manager/operations').pipe(
             map((resData) => {
                 const operations = [];
@@ -49,8 +42,7 @@ export class OperationsService {
                     );
                 });
                 return operations;
-            }), /* map() Applies a given project function to each value emitted by the source
-             Observable, and emits the resulting values as an Observable.*/
+            }),
             tap((operations) => {
                 return this._operations.next(operations);
             })
@@ -92,45 +84,23 @@ export class OperationsService {
         );
 
         const str = date;
-        console.log(str);
         const darr = str.split('/');
-        console.log(darr);
         let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0])).toISOString();
-        console.log(time);
-
 
         this.eventsService.createEvent(operationId, name, time, time).subscribe();
 
         return this.httpClient.post('Http://127.0.0.1:8000/manager/operations', {...newOperation})
-            .pipe( /*tap(
-                (data:any[]) => {
-                    console.log(data);
-                })*/
-                switchMap((resData) => { // On each emission the previous inner observable (the result of the function you supplied) is cancelled and the new observable is subscribed.
-                    return this.operations;  // return the entire array as an Observable
+            .pipe(
+                switchMap((resData) => {
+                    return this.operations;
                 }),
 
-                take(1),  // Take only the first emission of that flux, the latest fields array
+                take(1),
                 tap((operations) => {
                     this._operations.next((operations.concat(newOperation)));
-                }) /*Intercepts each emission on the source and runs a function,
-                but returns an output which is identical to the source as long as errors don't occur.*/
+                })
             );
 
-
-        /*this.operations.pipe(take(1)).subscribe((operations) => {
-            this._operations.next(
-                operations.concat(new Operation(
-                    name,
-                    operationId,
-                    fieldId,
-                    description,
-                    date,
-                    operator,
-                    )
-                )
-            );
-        });*/
 
     }
 
@@ -147,10 +117,7 @@ export class OperationsService {
                 this._operations.next(operations.filter(operation => operation.operationId !== operationId));
             })
         );
-        /*return this.operations.pipe(take(1), tap((operations) => {
-                this._operations.next(operations.filter(operation => operation.operationId !== operationId));
-            })
-        );*/
+
     }
 
     updateOperation(operationId: string,
@@ -162,11 +129,8 @@ export class OperationsService {
         let updateOperations: Operation[];
 
         const str = date;
-        console.log(str);
         const darr = str.split('/');
-        console.log(darr);
         let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0])).toISOString();
-
 
         this.eventsService.updateEvent(operationId, name, time, time).subscribe();
 
@@ -193,8 +157,6 @@ export class OperationsService {
                     oldOperation.isDone
                 );
 
-                console.log(updateOperations[updateOperationIndex]);
-                // option+9 for `literal concatenation operator
                 return this.httpClient.put(`Http://127.0.0.1:8000/manager/operations/${operationId}/`,
                     {...updateOperations[updateOperationIndex]});
             }),
@@ -202,13 +164,6 @@ export class OperationsService {
                 this._operations.next(updateOperations);
             })
         );
-        /*return this.operations.pipe(take(1), tap((operations) => {
-            const updateOperationIndex = operations.findIndex((operation) => operation.operationId === operationId);
-            const updateOperations = [...operations];
-            const oldOperation = updateOperations[updateOperationIndex];
-            updateOperations[updateOperationIndex] = new Operation(name, oldOperation.operationId, oldOperation.fieldId, description, date, operator);
-            this._operations.next(updateOperations);
-        }));*/
     }
 
 
@@ -242,8 +197,6 @@ export class OperationsService {
                     !oldOperation.isDone
                 );
 
-                console.log(updateOperations[updateOperationIndex]);
-                // option+9 for `literal concatenation operator
                 return this.httpClient.put(`Http://127.0.0.1:8000/manager/operations/${operationId}/`,
                     {...updateOperations[updateOperationIndex]});
             }),

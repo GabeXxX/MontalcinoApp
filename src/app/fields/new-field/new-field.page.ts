@@ -69,9 +69,11 @@ export class NewFieldPage implements OnInit {
             this.form.value.cultivation,
             this.form.value.owner,
             this.form.value.area,
-            this.form.value.elevation).subscribe();
+            this.form.value.elevation).subscribe(() => {
+            this.navCtrl.pop();
+        });
 
-        this.navCtrl.pop();
+
     }
 
     async presentModal() {
@@ -82,7 +84,6 @@ export class NewFieldPage implements OnInit {
             if (!result.data) {
                 return;
             }
-            console.log(result);
             const pickedLocation: FieldLocation = {
                 lat: result.data.lat,
                 lng: result.data.lng,
@@ -91,13 +92,11 @@ export class NewFieldPage implements OnInit {
                 zoom: 18
             };
             this.getAddress(result.data.lat, result.data.lng).pipe(switchMap((address) => {
-                    console.log(address);
                     this.defPosition = address;
                     pickedLocation.address = address;
                     return of(this.getMapImage(result.data.lat, result.data.lng, 18));
                 })
             ).subscribe((staticMapImgUrl) => {
-                console.log(staticMapImgUrl);
                 pickedLocation.staticMapUrl = staticMapImgUrl;
                 this.selectedLocationImage = staticMapImgUrl;
             });
@@ -108,7 +107,6 @@ export class NewFieldPage implements OnInit {
 
 
     private getAddress(lat: number, lng: number) {
-        // tslint:disable-next-line:max-line-length
         return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyDi9qNWoPh-RGHU3yGo-xCrP7M2bIFAMR4')
             .pipe(map((geoData: any) => {
                 if (!geoData || !geoData.results || geoData.results.length === 0) {

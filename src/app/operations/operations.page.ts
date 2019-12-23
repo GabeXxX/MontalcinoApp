@@ -30,7 +30,6 @@ export class OperationsPage implements OnInit {
             this.fields = fields;
             this.facadeService.operations.subscribe((operations) => {
                 this.operations = operations;
-                console.log(this.operations);
                 this.isLoading = false;
             });
 

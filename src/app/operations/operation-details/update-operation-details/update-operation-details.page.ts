@@ -75,7 +75,6 @@ export class UpdateOperationDetailsPage implements OnInit {
             this.form.value.description,
             new Date(this.form.value.date).toLocaleDateString(),
             this.form.value.operator).subscribe((responseData) => {
-            console.log(responseData);
             this.navController.pop();
         });
 

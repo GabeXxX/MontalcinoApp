@@ -95,7 +95,6 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
             this.form.value.area,
             this.form.value.elevation)
             .subscribe((responseData) => {
-                console.log(responseData);
                 this.navController.pop();
             });
 
@@ -114,7 +113,6 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
             if (!result.data) {
                 return;
             }
-            console.log(result);
             const pickedLocation: FieldLocation = {
                 lat: result.data.lat,
                 lng: result.data.lng,
@@ -139,7 +137,6 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
     }
 
     private getAddress(lat: number, lng: number) {
-        // tslint:disable-next-line:max-line-length
         return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyDi9qNWoPh-RGHU3yGo-xCrP7M2bIFAMR4')
             .pipe(map((geoData: any) => {
                 if (!geoData || !geoData.results || geoData.results.length === 0) {

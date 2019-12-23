@@ -43,9 +43,7 @@ export class FieldOperationsPage implements OnInit {
                     this.isLoadingFields = false;
 
                     this.facadeService.operations.subscribe((operations) => {
-                        console.log(operations);
                         this.operations = this.facadeService.getFieldOperations(this.field.id, operations);
-                        console.log(this.operations);
                         this.isLoadingOperations = false;
                     });
                 });
@@ -79,7 +77,6 @@ export class FieldOperationsPage implements OnInit {
                 role: 'destructive',
                 icon: 'document',
                 handler: () => {
-                    console.log('new empty operation clicked');
                     this.shareState.data.defaultFieldId = this.field.id;
                     this.router.navigate(['/', 'operations', 'create-operation']);
                 }
@@ -88,7 +85,6 @@ export class FieldOperationsPage implements OnInit {
                 icon: 'heart',
                 role: 'destructive',
                 handler: () => {
-                    console.log(this.field.id, '1');
                     this.shareState.data.defaultFieldId = this.field.id;
                     this.presentModal();
                 }

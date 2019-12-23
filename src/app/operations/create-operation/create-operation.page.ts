@@ -63,8 +63,6 @@ export class CreateOperationPage implements OnInit {
             this.defaultName = this.shareStateService.data.defaultName;
             this.defaultOperator = this.shareStateService.data.defaultOperator;
             this.shareStateService.clear();
-            console.log(this.defaultName);
-            console.log(this.defaultDescription);
             this.isLoading = false;
         });
 
@@ -75,15 +73,15 @@ export class CreateOperationPage implements OnInit {
 
 
     onCreateOperation() {
-        console.log(this.form.value.field);
         this.facadeService.createOperation(this.form.value.name,
             this.form.value.field,
             this.form.value.description,
             new Date(this.form.value.date).toLocaleDateString(),
             this.form.value.operator
-        ).subscribe();
-        console.log(this.form);
-        this.navController.pop();
+        ).subscribe(() => {
+            this.navController.pop();
+        });
+
     }
 
     ngOnDestroy(): void {

@@ -33,7 +33,6 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
             this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
                 .subscribe((field: Field) => {
                     this.field = field;
-                    console.log(this.field);
                     this.isLoading = false;
                 });
 

@@ -65,13 +65,6 @@ export class DefaultOperationsService {
                     isDone: operation.isDone
                 };
             }));
-
-        /*return this.defaultOperations.pipe(
-            take(1),
-            map((operations) => {
-                return {...operations.find((operation) => operation.operationId === operationId)};
-            })
-        );*/
     }
 
     createDeafaultOperation(name: string,
@@ -92,36 +85,16 @@ export class DefaultOperationsService {
         );
 
         return this.httpClient.post('http://127.0.0.1:8000/manager/preferite-operations', {...newOperation})
-            .pipe( /*tap(
-                (data:any[]) => {
-                    console.log(data);
-                })*/
-                switchMap((resData) => { // On each emission the previous inner observable (the result of the function you supplied) is cancelled and the new observable is subscribed.
-                    return this.defaultOperations;  // return the entire array as an Observable
+            .pipe(
+                switchMap((resData) => {
+                    return this.defaultOperations;
                 }),
 
-                take(1),  // Take only the first emission of that flux, the latest fields array
+                take(1),
                 tap((operations) => {
                     this._defaultOperations.next((operations.concat(newOperation)));
-                }) /*Intercepts each emission on the source and runs a function,
-                but returns an output which is identical to the source as long as errors don't occur.*/
+                })
             );
-
-
-        /*this.defaultOperations.pipe(take(1)).subscribe((operations) => {
-            this._defaultOperations.next(
-                operations.concat(new Operation(
-                    name,
-                    operationId,
-                    'undefined',
-                    description,
-                    date,
-                    operator,
-                    )
-                )
-            );
-        });*/
-
     }
 
 
@@ -135,11 +108,6 @@ export class DefaultOperationsService {
                 this._defaultOperations.next(operations.filter(operation => operation.operationId !== operationId));
             })
         );
-
-        /*return this.defaultOperations.pipe(take(1), tap((operations) => {
-                this._defaultOperations.next(operations.filter(operation => operation.operationId !== operationId));
-            })
-        );*/
     }
 
     updateDefaultOperation(operationId: string,
@@ -172,8 +140,6 @@ export class DefaultOperationsService {
                     oldOperation.isDone
                 );
 
-                console.log(updateOperations[updateOperationIndex]);
-                // option+9 for `literal concatenation operator
                 return this.httpClient.put(`Http://127.0.0.1:8000/manager/preferite-operations/${operationId}/`,
                     {...updateOperations[updateOperationIndex]});
             }),
@@ -182,13 +148,6 @@ export class DefaultOperationsService {
             })
         );
 
-        /*return this.defaultOperations.pipe(take(1), tap((operations) => {
-            const updateOperationIndex = operations.findIndex((operation) => operation.operationId === operationId);
-            const updateOperations = [...operations];
-            const oldOperation = updateOperations[updateOperationIndex];
-            updateOperations[updateOperationIndex] = new Operation(name, oldOperation.operationId, oldOperation.fieldId, description, date, operator);
-            this._defaultOperations.next(updateOperations);
-        }));*/
     }
 }
 

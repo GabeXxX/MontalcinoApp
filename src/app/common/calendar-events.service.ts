@@ -60,19 +60,15 @@ export class CalendarEventsService {
 
 
         return this.httpClient.post('Http://127.0.0.1:8000/manager/events', {...newEvent})
-            .pipe( /*tap(
-                (data:any[]) => {
-                    console.log(data);
-                })*/
-                switchMap((resData) => { // On each emission the previous inner observable (the result of the function you supplied) is cancelled and the new observable is subscribed.
-                    return this.events;  // return the entire array as an Observable
+            .pipe(
+                switchMap((resData) => {
+                    return this.events;
                 }),
 
-                take(1),  // Take only the first emission of that flux, the latest fields array
+                take(1),
                 tap((events) => {
                     this._events.next((events.concat(newEvent)));
-                }) /*Intercepts each emission on the source and runs a function,
-                but returns an output which is identical to the source as long as errors don't occur.*/
+                })
             );
 
     }

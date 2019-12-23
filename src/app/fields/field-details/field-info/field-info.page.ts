@@ -32,7 +32,6 @@ export class FieldInfoPage implements OnInit {
             this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
                 .subscribe((field: Field) => {
                     this.field = field;
-                    console.log(field);
                     this.isLoading = false;
                 });
 

@@ -21,7 +21,6 @@ export class FieldsPage implements OnInit {
         this.seg = 'list';
         this.fieldSubscription = this.facadeService.fields.subscribe((fields: Field[]) => {
             this.loadedFields = fields;
-            console.log(this.loadedFields);
         });
     }
 

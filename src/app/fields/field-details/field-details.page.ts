@@ -22,8 +22,7 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
-        console.log(this.field);
+        
         this.activatedRoute.paramMap.subscribe(paramMap => {
             if (!paramMap.has('fieldId')) {
                 this.navController.navigateBack('/fields');

@@ -66,9 +66,6 @@ export class CreateOperationPage implements OnInit {
             this.isLoading = false;
         });
 
-
-
-
     }
 
 

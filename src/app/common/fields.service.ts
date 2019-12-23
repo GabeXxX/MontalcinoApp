@@ -20,10 +20,10 @@ export class FieldsService {
     // non appena uno si subscribe()
 
     private _fields = new BehaviorSubject<Field[]>([
-        new Field('Campo 1', '1', 'Coltivazione di Brunello', 'Via del Brunello 16', '/assets/fieldPreview.jpg'),
-        new Field('Campo 2', '2', 'Coltivazione di Rosso', 'Via del Rosso 35', '/assets/fieldPreview.jpg'),
-        new Field('Campo 3', '3', 'Coltivazione di uva da tavola', 'Via del Grappolo 18', '/assets/fieldPreview.jpg'),
-        new Field('Campo 4', '4', 'Coltivazione di uva bianca', 'Via della Vite 2', '/assets/fieldPreview.jpg'),
+        /* new Field('Campo 1', '1', 'Coltivazione di Brunello', 'Via del Brunello 16', '/assets/fieldPreview.jpg'),
+         new Field('Campo 2', '2', 'Coltivazione di Rosso', 'Via del Rosso 35', '/assets/fieldPreview.jpg'),
+         new Field('Campo 3', '3', 'Coltivazione di uva da tavola', 'Via del Grappolo 18', '/assets/fieldPreview.jpg'),
+         new Field('Campo 4', '4', 'Coltivazione di uva bianca', 'Via della Vite 2', '/assets/fieldPreview.jpg'),*/
     ]); // Behaviur subject are subject with initial value
 
     get fields() {
@@ -47,7 +47,7 @@ export class FieldsService {
                         field.cultivation,
                         field.owner,
                         field.area,
-                        field.perimeter));
+                        field.elevation));
                 });
                 return fields;
             }), /* map() Applies a given project function to each value emitted by the source
@@ -66,7 +66,7 @@ export class FieldsService {
                 cultivation: string = 'Vite',
                 owner: string = 'Azienda Montalcino',
                 area: number = null,
-                perimeter: number = null) {
+                elevation: number = null) {
         const fieldId = this.uniqueId.createFieldUUID();
 
         const newField = new Field(
@@ -78,7 +78,7 @@ export class FieldsService {
             cultivation,
             owner,
             area,
-            perimeter
+            elevation
         );
 
         return this.httpClient.post('Http://127.0.0.1:8000/manager/fields', {...newField})
@@ -154,7 +154,7 @@ export class FieldsService {
                     cultivation: field.cultivation,
                     owner: field.owner,
                     area: field.area,
-                    perimeter: field.perimeter
+                    elevation: field.elevation
                 };
             }));
 
@@ -214,7 +214,7 @@ export class FieldsService {
         cultivation: string = 'Vite',
         owner: string = 'Azienda Montalcino',
         area: number = null,
-        perimeter: number = null) {
+        elevation: number = null) {
 
         let updateFields: Field[];
 
@@ -240,7 +240,7 @@ export class FieldsService {
                     cultivation,
                     owner,
                     area,
-                    perimeter
+                    elevation
                 );
                 // option+9 for `literal concatenation operator
                 return this.httpClient.put(`Http://127.0.0.1:8000/manager/fields/${fieldId}/`,

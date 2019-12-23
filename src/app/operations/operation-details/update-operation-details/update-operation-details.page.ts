@@ -20,7 +20,10 @@ export class UpdateOperationDetailsPage implements OnInit {
     private isLoading = false;
 
 
-    constructor(private facadeService: FacadeService, private navController: NavController, private activatedRoute: ActivatedRoute) {
+    constructor(
+        private facadeService: FacadeService,
+        private navController: NavController,
+        private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -66,7 +69,15 @@ export class UpdateOperationDetailsPage implements OnInit {
     }
 
     onUpdateOperation() {
-        this.facadeService.updateOperation(this.operation.operationId, this.form.value.name, this.form.value.description, new Date(this.form.value.date).toLocaleDateString(), this.form.value.operator).subscribe();
-        this.navController.pop();
+        this.facadeService.updateOperation(
+            this.operation.operationId,
+            this.form.value.name,
+            this.form.value.description,
+            new Date(this.form.value.date).toLocaleDateString(),
+            this.form.value.operator).subscribe((responseData) => {
+            console.log(responseData);
+            this.navController.pop();
+        });
+
     }
 }

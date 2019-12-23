@@ -13,7 +13,10 @@ export class OperationDetailsPage implements OnInit {
     private operation: Operation;
     private isLoading = false;
 
-    constructor(private facadeService: FacadeService, private activatedRoute: ActivatedRoute, private navController: NavController) {
+    constructor(
+        private facadeService: FacadeService,
+        private activatedRoute: ActivatedRoute,
+        private navController: NavController) {
     }
 
     ngOnInit() {
@@ -30,5 +33,6 @@ export class OperationDetailsPage implements OnInit {
                 });
         });
     }
+
 
 }

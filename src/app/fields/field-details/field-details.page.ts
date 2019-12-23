@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FacadeService} from '../../common/facade.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavController} from '@ionic/angular';
-import {Field} from '../../common/field.model';
 import {Subscription} from 'rxjs';
+import {Field} from '../../common/field.model';
 
 @Component({
     selector: 'app-field-details',
@@ -40,6 +40,7 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
         });
 
     }
+
 
     ngOnDestroy(): void {
         this.fieldSubscription.unsubscribe();

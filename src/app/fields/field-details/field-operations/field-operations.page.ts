@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Field} from '../../../common/field.model';
 import {FacadeService} from '../../../common/facade.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActionSheetController, ModalController, NavController} from '@ionic/angular';
@@ -14,7 +13,7 @@ import {ShareStateService} from '../../../common/share-state.service';
 })
 export class FieldOperationsPage implements OnInit {
     private operations: Operation[];
-    private field: Field;
+    private field: any;
     private seg: string;
     private isLoadingOperations = false;
     private isLoadingFields = false;

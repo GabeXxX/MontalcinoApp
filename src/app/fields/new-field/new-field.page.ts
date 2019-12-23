@@ -43,7 +43,7 @@ export class NewFieldPage implements OnInit {
                 updateOn: 'blur',
                 validators: [Validators.required]
             }),
-            perimeter: new FormControl(null, {
+            elevation: new FormControl(null, {
                 updateOn: 'blur',
                 validators: [Validators.required]
             }),
@@ -69,7 +69,7 @@ export class NewFieldPage implements OnInit {
             this.form.value.cultivation,
             this.form.value.owner,
             this.form.value.area,
-            this.form.value.perimeter).subscribe();
+            this.form.value.elevation).subscribe();
 
         this.navCtrl.pop();
     }

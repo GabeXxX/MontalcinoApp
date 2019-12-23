@@ -8,7 +8,7 @@ export class Field {
                 public cultivation: string = 'Vite',
                 public owner: string = 'Azienda Montalcino',
                 public area: number = 100,
-                public perimeter: number = 1000
+                public elevation: number = 1000
     ) {
 
     }

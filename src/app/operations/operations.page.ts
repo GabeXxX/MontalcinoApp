@@ -15,6 +15,7 @@ export class OperationsPage implements OnInit {
     private operations: Operation[];
     private fields: Field[];
     private seg: string;
+    isLoading = false;
 
     constructor(private facadeService: FacadeService, private router: Router,
                 private actionSheetController: ActionSheetController, private modalController: ModalController) {
@@ -24,13 +25,15 @@ export class OperationsPage implements OnInit {
 
         this.seg = 'all';
 
-        this.facadeService.operations.subscribe((operations) => {
-            this.operations = operations;
-            console.log(this.operations);
-        });
-
+        this.isLoading = true;
         this.facadeService.fields.subscribe((fields) => {
             this.fields = fields;
+            this.facadeService.operations.subscribe((operations) => {
+                this.operations = operations;
+                console.log(this.operations);
+                this.isLoading = false;
+            });
+
         });
 
 

@@ -51,7 +51,7 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
                 updateOn: 'blur',
                 validators: [Validators.required]
             }),
-            perimeter: new FormControl(null, {
+            elevation: new FormControl(null, {
                 updateOn: 'blur',
                 validators: [Validators.required]
             }),
@@ -80,14 +80,26 @@ export class UpdateFieldInfoPage implements OnInit, OnDestroy {
             });
 
 
-
-
         });
     }
 
     onUpdateField() {
-        this.facadeService.updateField(this.field.id, this.form.value.name, this.form.value.position, this.form.value.description, this.selectedLocationImage, this.form.value.cultivation, this.form.value.owner, this.form.value.area, this.form.value.perimeter).subscribe();
-        this.navController.pop();
+        this.facadeService.updateField(
+            this.field.id,
+            this.form.value.name,
+            this.form.value.position,
+            this.form.value.description,
+            this.selectedLocationImage,
+            this.form.value.cultivation,
+            this.form.value.owner,
+            this.form.value.area,
+            this.form.value.elevation)
+            .subscribe((responseData) => {
+                console.log(responseData);
+                this.navController.pop();
+            });
+
+
     }
 
     ngOnDestroy(): void {

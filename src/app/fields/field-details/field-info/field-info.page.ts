@@ -22,6 +22,7 @@ export class FieldInfoPage implements OnInit {
     }
 
     ngOnInit() {
+
         this.activatedRoute.paramMap.subscribe(paramMap => {
             if (!paramMap.has('fieldId')) {
                 this.navController.navigateBack('/fields');
@@ -29,13 +30,16 @@ export class FieldInfoPage implements OnInit {
             }
             this.isLoading = true;
             this.fieldSubscription = this.facadeService.getField(paramMap.get('fieldId'))
-                .subscribe((field) => {
+                .subscribe((field: Field) => {
                     this.field = field;
+                    console.log(field);
                     this.isLoading = false;
                 });
 
+
         });
     }
+
 
     ngOnDestroy(): void {
 

@@ -18,11 +18,11 @@ export class OperationsService {
     }
 
     private _operations = new BehaviorSubject<Operation[]>([
-        new Operation('Operazione 1', '1', '1'),
+        /*new Operation('Operazione 1', '1', '1'),
         new Operation('Operazione 1', '2', '2'),
         new Operation('Operazione 1', '3', '3'),
         new Operation('Operazione 1', '4', '4'),
-        new Operation('Operazione 2', '5', '4'),
+        new Operation('Operazione 2', '5', '4'),*/
     ]);
 
 
@@ -32,6 +32,8 @@ export class OperationsService {
     }
 
     fetchOperations() {
+        // use local machine ip number (preferenze di sistema -> rete -> scritto sotto a stato for retrieving data from
+        // app running on telephone
         return this.httpClient.get<Operation[]>('Http://127.0.0.1:8000/manager/operations').pipe(
             map((resData) => {
                 const operations = [];
@@ -93,9 +95,7 @@ export class OperationsService {
         console.log(str);
         const darr = str.split('/');
         console.log(darr);
-        let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0]));
-        console.log(time);
-        time = time.toISOString();
+        let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0])).toISOString();
         console.log(time);
 
 
@@ -165,10 +165,8 @@ export class OperationsService {
         console.log(str);
         const darr = str.split('/');
         console.log(darr);
-        let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0]));
-        console.log(time);
-        time = time.toISOString();
-        console.log(time);
+        let time = new Date(Number(darr[2]), Number(darr[1]) - 1, Number(darr[0])).toISOString();
+
 
         this.eventsService.updateEvent(operationId, name, time, time).subscribe();
 

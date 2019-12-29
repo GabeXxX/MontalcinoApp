@@ -11,13 +11,18 @@
     <div *ngIf="isLoading" text-center>
         <ion-spinner color="primary"></ion-spinner>
     </div>
-
-    <div *ngIf="!isLoading">
-        <ion-img [src]="field.imagePreviewUrl"></ion-img>
-    </div>
     <ion-grid *ngIf="!isLoading">
         <ion-row>
-            <ion-col offset-sm="2" size="12" size-sm="8">
+
+
+            <ion-col size="12" size-sm>
+                <ion-list>
+                    <div *ngIf="!isLoading">
+                        <ion-img [src]="field.imagePreviewUrl"></ion-img>
+                    </div>
+                </ion-list>
+            </ion-col>
+            <ion-col size="12" size-sm>
                 <ion-list>
                     <ion-item [routerLink]="['/', 'fields', field.id, 'field-info']" detail>
                         <ion-label>

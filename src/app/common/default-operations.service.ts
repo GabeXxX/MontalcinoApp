@@ -4,6 +4,7 @@ import {BehaviorSubject, of} from 'rxjs';
 import {Operation} from './operation.model';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {LOCAL_SERVER} from './global';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +29,7 @@ export class DefaultOperationsService {
     }
 
     fetchDefaultOperations() {
-        return this.httpClient.get<Operation[]>('Http://127.0.0.1:8000/manager/preferite-operations').pipe(
+        return this.httpClient.get<Operation[]>(`${LOCAL_SERVER.URL}/manager/preferite-operations`).pipe(
             map((resData) => {
                 const operations = [];
                 resData.forEach((operation) => {
@@ -53,7 +54,7 @@ export class DefaultOperationsService {
 
 
     getDefaultOperation(operationId: string) {
-        return this.httpClient.get(`Http://127.0.0.1:8000/manager/preferite-operations/${operationId}/`).pipe(
+        return this.httpClient.get(`${LOCAL_SERVER.URL}/manager/preferite-operations/${operationId}/`).pipe(
             map((operation: Operation) => {
                 return {
                     name: operation.name,
@@ -84,7 +85,7 @@ export class DefaultOperationsService {
             operator,
         );
 
-        return this.httpClient.post('http://127.0.0.1:8000/manager/preferite-operations', {...newOperation})
+        return this.httpClient.post(`${LOCAL_SERVER.URL}/manager/preferite-operations`, {...newOperation})
             .pipe(
                 switchMap((resData) => {
                     return this.defaultOperations;
@@ -99,7 +100,7 @@ export class DefaultOperationsService {
 
 
     removeDefaultOperation(operationId: string) {
-        return this.httpClient.delete(`Http://127.0.0.1:8000/manager/preferite-operations/${operationId}/`).pipe(
+        return this.httpClient.delete(`${LOCAL_SERVER.URL}/manager/preferite-operations/${operationId}/`).pipe(
             switchMap(() => {
                 return this.defaultOperations;
             }),
@@ -140,7 +141,7 @@ export class DefaultOperationsService {
                     oldOperation.isDone
                 );
 
-                return this.httpClient.put(`Http://127.0.0.1:8000/manager/preferite-operations/${operationId}/`,
+                return this.httpClient.put(`${LOCAL_SERVER.URL}/manager/preferite-operations/${operationId}/`,
                     {...updateOperations[updateOperationIndex]});
             }),
             tap(() => {

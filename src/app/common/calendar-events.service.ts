@@ -3,6 +3,7 @@ import {BehaviorSubject, of} from 'rxjs';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {CalendarEvents} from './calendar-events.model';
 import {HttpClient} from '@angular/common/http';
+import {LOCAL_SERVER} from './global';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class CalendarEventsService {
     }
 
     fetchEvents() {
-        return this.httpClient.get<CalendarEvents[]>('Http://127.0.0.1:8000/manager/events').pipe(
+        return this.httpClient.get<CalendarEvents[]>(`${LOCAL_SERVER.URL}/manager/events`).pipe(
             map((resData) => {
                 const events = [];
                 resData.forEach((event) => {
@@ -37,7 +38,7 @@ export class CalendarEventsService {
 
 
     getEvent(eventId: string) {
-        return this.httpClient.get(`Http://127.0.0.1:8000/manager/events/${eventId}/`).pipe(
+        return this.httpClient.get(`${LOCAL_SERVER.URL}/manager/events/${eventId}/`).pipe(
             map((event: CalendarEvents) => {
                 return {
                     id: event.id,
@@ -59,7 +60,7 @@ export class CalendarEventsService {
         );
 
 
-        return this.httpClient.post('Http://127.0.0.1:8000/manager/events', {...newEvent})
+        return this.httpClient.post(`${LOCAL_SERVER.URL}/manager/events`, {...newEvent})
             .pipe(
                 switchMap((resData) => {
                     return this.events;
@@ -75,7 +76,7 @@ export class CalendarEventsService {
 
 
     removeEvent(eventId: string) {
-        return this.httpClient.delete(`Http://127.0.0.1:8000/manager/events/${eventId}/`).pipe(
+        return this.httpClient.delete(`${LOCAL_SERVER.URL}/manager/events/${eventId}/`).pipe(
             switchMap(() => {
                 return this.events;
             }),
@@ -116,7 +117,7 @@ export class CalendarEventsService {
 
                 console.log(updateEvent[updateEventIndex]);
                 // option+9 for `literal concatenation operator
-                return this.httpClient.put(`Http://127.0.0.1:8000/manager/events/${id}/`,
+                return this.httpClient.put(`${LOCAL_SERVER.URL}/manager/events/${id}/`,
                     {...updateEvent[updateEventIndex]});
             }),
             tap(() => {

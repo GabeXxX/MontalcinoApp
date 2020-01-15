@@ -20,7 +20,19 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      // let status bar overlay webview
+      this.statusBar.overlaysWebView(false);
+      // overlaysWebView must set to false if you change the background color in Android with ionic
+
+      this.statusBar.backgroundColorByHexString('#ffffff');
+      // used above hex color code to set the status bar background color
+
       this.statusBar.styleDefault();
+      // above function  will change the status bar content (icon , text)
+
+      this.statusBar.show();
+      // finally shows the status bar
+
       this.splashScreen.hide();
     });
   }

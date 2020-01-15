@@ -5,7 +5,7 @@ import {map, switchMap, take, tap} from 'rxjs/operators';
 import {UniqueIdService} from './unique-id.service';
 import {HttpClient} from '@angular/common/http';
 import {CalendarEventsService} from './calendar-events.service';
-
+import {LOCAL_SERVER} from './global';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +27,7 @@ export class OperationsService {
 
     fetchOperations() {
 
-        return this.httpClient.get<Operation[]>('Http://127.0.0.1:8000/manager/operations').pipe(
+        return this.httpClient.get<Operation[]>(`${LOCAL_SERVER.URL}/manager/operations`).pipe(
             map((resData) => {
                 const operations = [];
                 resData.forEach((operation) => {
@@ -51,7 +51,7 @@ export class OperationsService {
 
 
     getOperation(operationId: string) {
-        return this.httpClient.get(`Http://127.0.0.1:8000/manager/operations/${operationId}/`).pipe(
+        return this.httpClient.get(`${LOCAL_SERVER.URL}/manager/operations/${operationId}/`).pipe(
             map((operation: Operation) => {
                 return {
                     name: operation.name,
@@ -89,7 +89,7 @@ export class OperationsService {
 
         this.eventsService.createEvent(operationId, name, time, time).subscribe();
 
-        return this.httpClient.post('Http://127.0.0.1:8000/manager/operations', {...newOperation})
+        return this.httpClient.post(`${LOCAL_SERVER.URL}/manager/operations`, {...newOperation})
             .pipe(
                 switchMap((resData) => {
                     return this.operations;
@@ -108,7 +108,7 @@ export class OperationsService {
     removeOperation(operationId: string) {
         this.eventsService.removeEvent(operationId).subscribe();
 
-        return this.httpClient.delete(`Http://127.0.0.1:8000/manager/operations/${operationId}/`).pipe(
+        return this.httpClient.delete(`${LOCAL_SERVER.URL}/manager/operations/${operationId}/`).pipe(
             switchMap(() => {
                 return this.operations;
             }),
@@ -157,7 +157,7 @@ export class OperationsService {
                     oldOperation.isDone
                 );
 
-                return this.httpClient.put(`Http://127.0.0.1:8000/manager/operations/${operationId}/`,
+                return this.httpClient.put(`${LOCAL_SERVER.URL}/manager/operations/${operationId}/`,
                     {...updateOperations[updateOperationIndex]});
             }),
             tap(() => {
@@ -197,7 +197,7 @@ export class OperationsService {
                     !oldOperation.isDone
                 );
 
-                return this.httpClient.put(`Http://127.0.0.1:8000/manager/operations/${operationId}/`,
+                return this.httpClient.put(`${LOCAL_SERVER.URL}/manager/operations/${operationId}/`,
                     {...updateOperations[updateOperationIndex]});
             }),
             tap(() => {

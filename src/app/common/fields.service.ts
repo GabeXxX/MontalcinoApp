@@ -4,6 +4,7 @@ import {UniqueIdService} from './unique-id.service';
 import {BehaviorSubject, of} from 'rxjs';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {LOCAL_SERVER} from './global';
 
 
 @Injectable({
@@ -22,7 +23,8 @@ export class FieldsService {
     }
 
     fetchFields() {
-        return this.httpClient.get<Field[]>('Http://127.0.0.1:8000/manager/fields').pipe(
+
+        return this.httpClient.get<Field[]>(`${LOCAL_SERVER.URL}/manager/fields`).pipe(
             map((resData) => {
                 const fields = [];
                 resData.forEach((field) => {
@@ -67,7 +69,7 @@ export class FieldsService {
             elevation
         );
 
-        return this.httpClient.post('Http://127.0.0.1:8000/manager/fields', {...newField})
+        return this.httpClient.post(`${LOCAL_SERVER.URL}/manager/fields`, {...newField})
             .pipe(
                 switchMap((resData) => {
                     return this.fields;
@@ -82,8 +84,7 @@ export class FieldsService {
     }
 
     getField(fieldId: string) {
-
-        return this.httpClient.get(`Http://127.0.0.1:8000/manager/fields/${fieldId}/`).pipe(
+        return this.httpClient.get(`${LOCAL_SERVER.URL}/manager/fields/${fieldId}/`).pipe(
             map((field: Field) => {
                 return {
                     name: field.name,
@@ -102,7 +103,7 @@ export class FieldsService {
     }
 
     removeField(fieldId: string) {
-        return this.httpClient.delete(`Http://127.0.0.1:8000/manager/fields/${fieldId}/`).pipe(
+        return this.httpClient.delete(`${LOCAL_SERVER.URL}/manager/fields/${fieldId}/`).pipe(
             switchMap(() => {
                 return this.fields;
             }),
@@ -152,7 +153,7 @@ export class FieldsService {
                     elevation
                 );
 
-                return this.httpClient.put(`Http://127.0.0.1:8000/manager/fields/${fieldId}/`,
+                return this.httpClient.put(`${LOCAL_SERVER.URL}/manager/fields/${fieldId}/`,
                     {...updateFields[updateFieldIndex]});
             }),
             tap(() => {
